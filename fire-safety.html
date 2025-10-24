@@ -7,8 +7,7 @@
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://unpkg.com/feather-icons" defer></script>
 </head>
 <body class="bg-white text-gray-800 min-h-screen flex flex-col">
     <custom-navbar></custom-navbar>
@@ -32,21 +31,21 @@
                     <h2 class="text-2xl font-bold mb-4 text-gray-800">Yangına Dayanıklı Bitkiler 🌿</h2>
                     <div class="space-y-4">
                         <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl">
-                            <img src="images/plants/aloe-vera.jpg" alt="Aloe Vera" class="w-16 h-16 object-cover rounded-lg">
+                            <img src="images/plants/aloe-vera.jpg" alt="Aloe Vera" class="w-16 h-16 object-cover rounded-lg" loading="lazy" decoding="async">
                             <div>
                                 <h4 class="font-semibold text-gray-800">Aloe Vera</h4>
                                 <p class="text-sm text-gray-600">Aloe barbadensis</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl">
-                            <img src="images/plants/kaktus.jpg" alt="Kaktüs" class="w-16 h-16 object-cover rounded-lg">
+                            <img src="images/plants/kaktus.jpg" alt="Kaktüs" class="w-16 h-16 object-cover rounded-lg" loading="lazy" decoding="async">
                             <div>
                                 <h4 class="font-semibold text-gray-800">Kaktüs</h4>
                                 <p class="text-sm text-gray-600">Cactaceae</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl">
-                            <img src="images/plants/lavanta.jpg" alt="Lavanta" class="w-16 h-16 object-cover rounded-lg">
+                            <img src="images/plants/lavanta.jpg" alt="Lavanta" class="w-16 h-16 object-cover rounded-lg" loading="lazy" decoding="async">
                             <div>
                                 <h4 class="font-semibold text-gray-800">Lavanta</h4>
                                 <p class="text-sm text-gray-600">Lavandula angustifolia</p>
@@ -63,14 +62,14 @@
                     <h2 class="text-2xl font-bold mb-4 text-gray-800">Hızlı Yanan Bitkiler ⚠️</h2>
                     <div class="space-y-4">
                         <div class="flex items-center gap-4 p-4 bg-orange-50 rounded-xl">
-                            <img src="images/plants/ada-cayi.jpg" alt="Ada Çayı" class="w-16 h-16 object-cover rounded-lg">
+                            <img src="images/plants/ada-cayi.jpg" alt="Ada Çayı" class="w-16 h-16 object-cover rounded-lg" loading="lazy" decoding="async">
                             <div>
                                 <h4 class="font-semibold text-gray-800">Ada Çayı</h4>
                                 <p class="text-sm text-gray-600">Salvia officinalis</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 p-4 bg-orange-50 rounded-xl">
-                            <img src="images/plants/lavanta.jpg" alt="Lavanta" class="w-16 h-16 object-cover rounded-lg">
+                            <img src="images/plants/lavanta.jpg" alt="Lavanta" class="w-16 h-16 object-cover rounded-lg" loading="lazy" decoding="async">
                             <div>
                                 <h4 class="font-semibold text-gray-800">Lavanta</h4>
                                 <p class="text-sm text-gray-600">Lavandula angustifolia</p>
@@ -126,11 +125,13 @@
     <custom-footer></custom-footer>
 
     <!-- Component Scripts -->
-    <script src="components/navbar.js"></script>
-    <script src="components/footer.js"></script>
-    <script src="script.js"></script>
+    <script src="navbar.js" defer></script>
+    <script src="footer.js" defer></script>
+    <script src="script.js" defer></script>
     <script>
-        feather.replace();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.feather) feather.replace();
+        });
     </script>
 </body>
 </html>
