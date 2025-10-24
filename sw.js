@@ -1,7 +1,7 @@
-// Service Worker for Flora Yanma Atlası
-const CACHE_NAME = 'flora-atlas-v1';
-const STATIC_CACHE = 'flora-static-v1';
-const DYNAMIC_CACHE = 'flora-dynamic-v1';
+// Service Worker for Flora Yanma Atlası - Cloudflare CDN Optimized
+const CACHE_NAME = 'flora-atlas-v2';
+const STATIC_CACHE = 'flora-static-v2';
+const DYNAMIC_CACHE = 'flora-dynamic-v2';
 
 // Files to cache immediately
 const STATIC_FILES = [
@@ -9,7 +9,6 @@ const STATIC_FILES = [
     '/index.html',
     '/plants.html',
     '/about.html',
-    '/fire-safety.html',
     '/privacy.html',
     '/terms.html',
     '/non-critical.css',
@@ -18,6 +17,13 @@ const STATIC_FILES = [
     '/script.js',
     '/audio-system.js',
     '/manifest.json',
+    // Static assets
+    '/static/favicon.ico',
+    '/static/apple-touch-icon.png',
+    '/static/favicon-32x32.png',
+    '/static/favicon-16x16.png',
+    '/static/icon-192x192.png',
+    '/static/icon-512x512.png',
     // Critical images
     '/images/plants/aloe-vera.jpg',
     '/images/plants/kaktus.jpg',
@@ -108,11 +114,20 @@ self.addEventListener('fetch', event => {
                         // Clone the response
                         const responseToCache = response.clone();
 
-                        // Cache dynamic content
-                        caches.open(DYNAMIC_CACHE)
-                            .then(cache => {
-                                cache.put(request, responseToCache);
-                            });
+                        // Cache strategy based on file type
+                        if (request.url.includes('/static/') || request.url.includes('/images/')) {
+                            // Static assets and images - Cache First
+                            caches.open(STATIC_CACHE)
+                                .then(cache => {
+                                    cache.put(request, responseToCache);
+                                });
+                        } else if (request.url.endsWith('.html')) {
+                            // HTML files - Network First
+                            caches.open(DYNAMIC_CACHE)
+                                .then(cache => {
+                                    cache.put(request, responseToCache);
+                                });
+                        }
 
                         return response;
                     })

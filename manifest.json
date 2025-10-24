@@ -57,18 +57,6 @@
           "sizes": "96x96"
         }
       ]
-    },
-    {
-      "name": "Yangın Güvenliği",
-      "short_name": "Güvenlik",
-      "description": "Yangın güvenliği rehberi",
-      "url": "/fire-safety.html",
-      "icons": [
-        {
-          "src": "/static/shortcut-safety.png",
-          "sizes": "96x96"
-        }
-      ]
     }
   ],
   "related_applications": [],

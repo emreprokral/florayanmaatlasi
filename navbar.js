@@ -91,7 +91,6 @@ class CustomNavbar extends HTMLElement {
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link"><i data-feather="home"></i>Ana Sayfa</a></li>
           <li><a href="plants.html" class="nav-link"><i data-feather="compass"></i>Bitkileri Keşfet</a></li>
-          <li><a href="fire-safety.html" class="nav-link"><i data-feather="shield"></i>Yangın Güvenliği</a></li>
           <li><a href="about.html" class="nav-link"><i data-feather="info"></i>Hakkında</a></li>
         </ul>
       </nav>
