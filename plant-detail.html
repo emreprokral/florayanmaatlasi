@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitki Detayı | Flora Yanma Atlası</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+    
+    <!-- Plant Detail Section -->
+    <section class="py-16 bg-gradient-to-b from-white to-green-50">
+        <div class="container mx-auto px-4">
+            <!-- Back Button -->
+            <div class="max-w-4xl mx-auto mb-8">
+                <a href="plants.html" class="inline-flex items-center text-green-600 hover:text-green-700 transition-colors font-semibold">
+                    <i data-feather="arrow-left" class="w-5 h-5 mr-2"></i>
+                    Bitki Galerisine Dön
+                </a>
+            </div>
+            
+            <div id="plant-detail-content" class="max-w-4xl mx-auto">
+                <!-- Content will be populated by JavaScript -->
+                <div class="text-center py-12">
+                    <div class="loading">
+                        <i data-feather="loader" class="w-12 h-12 text-green-500 animate-spin mx-auto"></i>
+                    </div>
+                    <p class="text-gray-600 mt-4">Bitki bilgileri yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <custom-footer></custom-footer>
+
+    <!-- Component Scripts -->
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script src="audio-system.js"></script>
+    <script>
+        feather.replace();
+        
+        // Get plant ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const plantId = urlParams.get('id');
+        
+        // Load plant details
+        document.addEventListener('DOMContentLoaded', () => {
+            const plant = plantData.getPlantById(plantId);
+            if (plant) {
+                document.getElementById('plant-detail-content').innerHTML = `
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <!-- Plant Image -->
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                            <img src="${plant.image}" alt="${plant.name}" class="w-full h-96 object-cover">
+                        </div>
+                        
+                        <!-- Plant Info -->
+                        <div>
+                            <h1 class="text-4xl font-bold mb-4 text-gray-800">${plant.name}</h1>
+                            <p class="text-gray-600 mb-2"><strong>Bilimsel Adı:</strong> ${plant.scientificName}</p>
+                            
+                            <div class="grid grid-cols-2 gap-4 my-6">
+                                <div class="bg-green-50 p-4 rounded-xl">
+                                    <i data-feather="zap" class="text-green-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-800">Yanma Hızı</h4>
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${utils.formatBurnSpeed(plant.burnSpeed)}">
+                                        ${plant.burnSpeed}
+                                    </span>
+                                </div>
+                                <div class="bg-orange-50 p-4 rounded-xl">
+                                    <i data-feather="shield" class="text-orange-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-800">Yangın Direnci</h4>
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${utils.formatFireResistance(plant.fireResistance)}">
+                                        ${plant.fireResistance}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-green-200 mb-6">
+                                <h3 class="text-xl font-bold mb-3 text-gray-800">Koruma Mekanizması</h3>
+                                <p class="text-gray-600 leading-relaxed">${plant.protectionMechanism}</p>
+                            </div>
+                            
+                            <!-- Audio Player -->
+                            <div class="audio-player p-4 rounded-xl text-white mb-6">
+                                <h3 class="text-lg font-semibold mb-3">Sesli Anlatım 🎧</h3>
+                                <div class="flex items-center gap-4">
+                                    <button onclick="audioSystem.playAudio('${plant.name}', this)" 
+                                            class="flex items-center gap-2 bg-white text-green-600 px-4 py-2 rounded-full font-semibold transition-all duration-300"
+                                            title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                        <i data-feather="volume-2" class="w-4 h-4"></i>
+                                        Sesli Anlat
+                                    </button>
+                                    <div class="flex-1 bg-white bg-opacity-30 rounded-full h-2"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                                <h3 class="text-xl font-bold mb-3 text-gray-800">Bilimsel Açıklama</h3>
+                                <p class="text-gray-600 leading-relaxed">${plant.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+feather.replace();
+            } else {
+                document.getElementById('plant-detail-content').innerHTML = `
+                    <div class="text-center py-12">
+                        <i data-feather="alert-circle" class="w-16 h-16 text-red-500 mx-auto"></i>
+                        <h2 class="text-2xl font-bold mt-4 text-gray-800">Bitki bulunamadı</h2>
+                        <a href="plants.html" class="inline-block mt-4 bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-600 transition-colors">
+                        ← Bitki Galerisine Dön
+                    </a>
+                    </div>
+                `;
+                feather.replace();
+            }
+        });
+    </script>
+</body>
+</html>
