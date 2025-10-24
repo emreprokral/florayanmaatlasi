@@ -3,21 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flora Yanma Atlası | Bitki Yanma Bilimi</title>
+    <title>Flora Yanma Atlası | Bitki Yanma Bilimi ve Yangın Güvenliği</title>
+    <meta name="description" content="Bitkilerin yangına karşı geliştirdiği koruma mekanizmalarını keşfedin. AI destekli sesli anlatımla 10+ bitki türünün yanma özelliklerini öğrenin.">
+    <meta name="keywords" content="bitki yanma bilimi, yangın güvenliği, flora atlası, bitki koruma mekanizmaları, AI sesli anlatım">
+    <meta name="author" content="Flora Yanma Atlası">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://flora-yanma-atlasi.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://flora-yanma-atlasi.com/">
+    <meta property="og:title" content="Flora Yanma Atlası | Bitki Yanma Bilimi">
+    <meta property="og:description" content="Bitkilerin yangına karşı geliştirdiği koruma mekanizmalarını keşfedin. AI destekli sesli anlatımla öğrenin.">
+    <meta property="og:image" content="https://flora-yanma-atlasi.com/images/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://flora-yanma-atlasi.com/">
+    <meta property="twitter:title" content="Flora Yanma Atlası | Bitki Yanma Bilimi">
+    <meta property="twitter:description" content="Bitkilerin yangına karşı geliştirdiği koruma mekanizmalarını keşfedin. AI destekli sesli anlatımla öğrenin.">
+    <meta property="twitter:image" content="https://flora-yanma-atlasi.com/images/og-image.jpg">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2d5016">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Flora Atlası">
+    <meta name="msapplication-TileColor" content="#2d5016">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- Accessibility improvements -->
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    
+    <!-- Skip to main content link -->
+    <style>
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--forest-green);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+    </style>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Flora Yanma Atlası",
+        "description": "Bitkilerin yangına karşı geliştirdiği koruma mekanizmalarını keşfedin. AI destekli sesli anlatımla bitki yanma bilimini öğrenin.",
+        "url": "https://flora-yanma-atlasi.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://flora-yanma-atlasi.com/plants.html?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Flora Yanma Atlası",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://flora-yanma-atlasi.com/images/logo.png"
+            }
+        },
+        "mainEntity": {
+            "@type": "EducationalOrganization",
+            "name": "Flora Yanma Atlası",
+            "description": "Bitki yanma bilimi ve yangın güvenliği eğitim platformu",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "TRY",
+                "description": "Ücretsiz bitki yanma bilimi eğitimi"
+            }
+        }
+    }
+    </script>
+    <style>
+        /* Critical CSS inline for faster rendering */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        :root{--forest-green:#2d5016;--sage-green:#87a96b;--leaf-green:#228b22}
+        body{font-family:'Inter',sans-serif;margin:0;padding:0;background:#f8fafc}
+        custom-navbar{display:block}
+        #hero{padding:2rem 0;position:relative;overflow:hidden}
+        #hero h1{font-size:2.5rem;font-weight:700;margin-bottom:1rem;background:linear-gradient(135deg,var(--forest-green)0%,var(--leaf-green)100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        #hero p{font-size:1.125rem;color:var(--forest-green);margin-bottom:2rem}
+        .natural-button{background:linear-gradient(135deg,var(--leaf-green)0%,var(--sage-green)100%);color:white;padding:0.75rem 2rem;border-radius:9999px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:transform 0.2s ease}
+        .natural-button:hover{transform:translateY(-2px)}
+        .container{max-width:1200px;margin:0 auto;padding:0 1rem}
+        .plant-card{background:white;border-radius:1rem;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);overflow:hidden;border:1px solid rgba(135,169,107,0.2);transition:transform 0.3s ease}
+        .plant-card:hover{transform:translateY(-4px)}
+        .plant-image{width:100%;height:12rem;object-fit:cover}
+        .grid{display:grid;gap:2rem}
+        .md\\:grid-cols-2{grid-template-columns:repeat(1,minmax(0,1fr))}
+        @media (min-width:768px){.md\\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+        @media (min-width:768px){#hero h1{font-size:4rem}#hero p{font-size:1.5rem}}
+    </style>
+    <link rel="preload" href="non-critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="non-critical.css"></noscript>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="https://unpkg.com/feather-icons" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js" defer></script>
 </head>
 <body class="bg-white text-gray-800 min-h-screen flex flex-col">
+    <a href="#main-content" class="skip-link">Ana içeriğe geç</a>
     <custom-navbar></custom-navbar>
     
     <!-- Hero Section -->
-    <section id="hero" class="relative py-20 overflow-hidden">
-        <div class="absolute inset-0 z-0" id="vanta-bg"></div>
+    <main id="main-content" role="main" aria-label="Ana içerik">
+    <section id="hero" class="relative py-20 overflow-hidden" role="banner" aria-label="Ana başlık bölümü">
+        <div class="absolute inset-0 z-0" id="vanta-bg" aria-hidden="true"></div>
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <h1 class="text-5xl md:text-7xl font-bold mb-6" style="background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 50%, var(--sage-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
@@ -26,13 +145,13 @@
                 <p class="text-xl md:text-2xl mb-8 leading-relaxed" style="color: var(--forest-green);">
                     Bitkilerin yanma sırlarını keşfedin! 🌿 Yapay zekâ destekli sesli anlatımla doğanın koruma mekanizmalarını öğrenin.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="plants.html" class="natural-button text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                        <i data-feather="compass" class="inline mr-2"></i>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center" role="group" aria-label="Ana sayfa eylemleri">
+                    <a href="plants.html" class="natural-button text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" aria-label="Bitki galerisini keşfet">
+                        <i data-feather="compass" class="inline mr-2" aria-hidden="true"></i>
                         Bitkileri Keşfet
                     </a>
-                    <a href="about.html" class="border-2 border-green-500 text-green-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-green-50 transition-all duration-300" style="border-color: var(--forest-green); color: var(--forest-green);">
-                        <i data-feather="info" class="inline mr-2"></i>
+                    <a href="about.html" class="border-2 border-green-500 text-green-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-green-50 transition-all duration-300" style="border-color: var(--forest-green); color: var(--forest-green);" aria-label="Proje hakkında bilgi al">
+                        <i data-feather="info" class="inline mr-2" aria-hidden="true"></i>
                         Hakkında
                     </a>
                 </div>
@@ -41,14 +160,14 @@
     </section>
 
     <!-- Features Section -->
-    <section class="py-20 sky-gradient">
+    <section class="py-20 sky-gradient" aria-labelledby="features-heading">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16" style="color: var(--forest-green);">Neden Flamazing Flora? ✨</h2>
+            <h2 id="features-heading" class="text-4xl font-bold text-center mb-16" style="color: var(--forest-green);">Neden Flamazing Flora? ✨</h2>
             
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto" role="list" aria-label="Özellikler listesi">
                 <!-- Feature 1 -->
-                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-green-100">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-green-100" role="listitem">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6" aria-hidden="true">
                     <i data-feather="volume-2" class="text-green-600 w-8 h-8"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Sesli Anlatım</h3>
@@ -58,8 +177,8 @@
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-orange-100">
-                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-orange-100" role="listitem">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6" aria-hidden="true">
                     <i data-feather="shield" class="text-orange-600 w-8 h-8"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Koruma Mekanizmaları</h3>
@@ -69,8 +188,8 @@
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-blue-100">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-blue-100" role="listitem">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6" aria-hidden="true">
                     <i data-feather="bar-chart-2" class="text-blue-600 w-8 h-8"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Bilimsel Veriler</h3>
@@ -83,39 +202,104 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="py-16 natural-gradient text-white">
+    <section class="py-16 natural-gradient text-white" aria-labelledby="stats-heading">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
+            <h2 id="stats-heading" class="sr-only">Site İstatistikleri</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" role="list" aria-label="Site istatistikleri">
+                <div role="listitem">
                     <div class="text-4xl font-bold mb-2">10</div>
                     <div style="color: rgba(255, 255, 255, 0.9);">Bitki Türü</div>
                 </div>
-                <div>
+                <div role="listitem">
                     <div class="text-4xl font-bold mb-2">100+</div>
                     <div style="color: rgba(255, 255, 255, 0.9);">Bilimsel Veri</div>
                 </div>
-                <div>
+                <div role="listitem">
                     <div class="text-4xl font-bold mb-2">AI</div>
                     <div style="color: rgba(255, 255, 255, 0.9);">Seslendirme</div>
                 </div>
-                <div>
+                <div role="listitem">
                     <div class="text-4xl font-bold mb-2">24/7</div>
                     <div style="color: rgba(255, 255, 255, 0.9);">Erişilebilir</div>
                 </div>
             </div>
         </div>
     </section>
+    </main>
 
     <custom-footer></custom-footer>
 
     <!-- Component Scripts -->
-    <script src="components/navbar.js"></script>
-    <script src="components/footer.js"></script>
-    <script src="script.js"></script>
+    <script src="navbar.js" defer></script>
+    <script src="footer.js" defer></script>
+    <script src="script.js" defer></script>
     <script>
-        feather.replace();
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                        
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New content is available, show update notification
+                                    if (confirm('Yeni içerik mevcut! Sayfayı yenilemek ister misiniz?')) {
+                                        window.location.reload();
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
         
-        // Initialize Vanta.js background
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install button
+            const installButton = document.createElement('button');
+            installButton.textContent = 'Uygulamayı Yükle';
+            installButton.className = 'natural-button';
+            installButton.style.position = 'fixed';
+            installButton.style.bottom = '20px';
+            installButton.style.right = '20px';
+            installButton.style.zIndex = '1000';
+            
+            installButton.addEventListener('click', () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                    installButton.remove();
+                });
+            });
+            
+            document.body.appendChild(installButton);
+        });
+        
+        // Track PWA install
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed');
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.feather) feather.replace();
+        });
+        // Initialize Vanta.js on window load so it's deferred
+        window.addEventListener('load', () => {
+            if (window.VANTA && document.getElementById('vanta-bg')) {
         VANTA.GLOBE({
             el: "#vanta-bg",
             mouseControls: true,
@@ -128,6 +312,8 @@
             color: 0x22c55e,
             backgroundColor: 0xffffff,
             size: 0.8
+                });
+            }
         });
     </script>
 </body>

@@ -1,0 +1,117 @@
+/* Critical CSS - Above the fold styles only */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --forest-green: #2d5016;
+    --sage-green: #87a96b;
+    --leaf-green: #228b22;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8fafc;
+}
+
+/* Critical navbar styles */
+custom-navbar {
+    display: block;
+}
+
+/* Critical hero styles */
+#hero {
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#hero p {
+    font-size: 1.125rem;
+    color: var(--forest-green);
+    margin-bottom: 2rem;
+}
+
+/* Critical button styles */
+.natural-button {
+    background: linear-gradient(135deg, var(--leaf-green) 0%, var(--sage-green) 100%);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.natural-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Critical layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Critical plant card styles */
+.plant-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid rgba(135, 169, 107, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.plant-card:hover {
+    transform: translateY(-4px);
+}
+
+.plant-image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+}
+
+/* Critical grid */
+.grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.md\\:grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+    .md\\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .md\\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Critical responsive text */
+@media (min-width: 768px) {
+    #hero h1 {
+        font-size: 4rem;
+    }
+    #hero p {
+        font-size: 1.5rem;
+    }
+}
