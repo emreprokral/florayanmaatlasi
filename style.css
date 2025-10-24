@@ -35,12 +35,99 @@ body {
 
 /* Card hover effects */
 .plant-card {
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
 .plant-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.plant-card:hover .plant-image {
+    transform: scale(1.1);
+}
+
+.plant-image {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card shimmer effect */
+.plant-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.plant-card:hover::before {
+    left: 100%;
+}
+
+/* Button animations */
+.audio-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.audio-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+}
+
+.audio-button:active {
+    transform: translateY(0);
+}
+
+/* Link animations */
+.plant-card a {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.plant-card a:hover {
+    color: #16a34a !important;
+}
+
+.plant-card a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    transition: width 0.3s ease;
+}
+
+.plant-card a:hover::after {
+    width: 100%;
+}
+
+/* Audio progress bar styles */
+.audio-progress {
+    transition: width 0.1s ease;
+}
+
+.audio-progress:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Progress bar container hover effect */
+.audio-progress-container {
+    transition: all 0.2s ease;
+}
+
+.audio-progress-container:hover {
+    background: rgba(255, 255, 255, 0.4) !important;
+    transform: scaleY(1.2);
 }
 
 /* Audio player custom styles */
@@ -48,6 +135,67 @@ body {
     background: linear-gradient(135deg, #22c55e, #f59e0b);
 }
 
+/* Page load animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Staggered animation for plant cards */
+.plant-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.plant-card:nth-child(1) { animation-delay: 0.1s; }
+.plant-card:nth-child(2) { animation-delay: 0.2s; }
+.plant-card:nth-child(3) { animation-delay: 0.3s; }
+.plant-card:nth-child(4) { animation-delay: 0.4s; }
+.plant-card:nth-child(5) { animation-delay: 0.5s; }
+.plant-card:nth-child(6) { animation-delay: 0.6s; }
+.plant-card:nth-child(7) { animation-delay: 0.7s; }
+.plant-card:nth-child(8) { animation-delay: 0.8s; }
+.plant-card:nth-child(9) { animation-delay: 0.9s; }
+.plant-card:nth-child(10) { animation-delay: 1.0s; }
+
+/* Hero section animation */
+#hero h1 {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+#hero p {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+#hero .flex {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* Feature cards animation */
+.feature-card {
+    animation: fadeInScale 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.3s; }
 /* Loading animation */
 @keyframes pulse {
     0%, 100% {
@@ -58,6 +206,19 @@ body {
     }
 }
 
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .loading {
     animation: pulse 2s infinite;
+}
+
+.loading i {
+    animation: spin 1s linear infinite;
 }
