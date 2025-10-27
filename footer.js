@@ -84,15 +84,15 @@ class CustomFooter extends HTMLElement {
           </div>
           
           <div class="footer-links">
-            <a href="/privacy.html" class="footer-link">
+            <a href="./privacy.html" class="footer-link">
               <i data-feather="shield"></i>
               Gizlilik
             </a>
-            <a href="/terms.html" class="footer-link">
+            <a href="./terms.html" class="footer-link">
               <i data-feather="file-text"></i>
               Kullanım Şartları
             </a>
-            <a href="/contact.html" class="footer-link">
+            <a href="./contact.html" class="footer-link">
               <i data-feather="mail"></i>
               İletişim
             </a>

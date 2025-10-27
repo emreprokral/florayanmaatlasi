@@ -79,7 +79,7 @@ class CustomNavbar extends HTMLElement {
         }
       </style>
       <nav>
-        <a href="index.html" class="logo">
+        <a href="./index.html" class="logo">
           <i data-feather="flame"></i>
           Flora Yanma Atlası
         </a>
@@ -89,9 +89,9 @@ class CustomNavbar extends HTMLElement {
         </button>
         
         <ul class="nav-links">
-          <li><a href="index.html" class="nav-link"><i data-feather="home"></i>Ana Sayfa</a></li>
-          <li><a href="plants.html" class="nav-link"><i data-feather="compass"></i>Bitkileri Keşfet</a></li>
-          <li><a href="about.html" class="nav-link"><i data-feather="info"></i>Hakkında</a></li>
+          <li><a href="./index.html" class="nav-link"><i data-feather="home"></i>Ana Sayfa</a></li>
+          <li><a href="./plants.html" class="nav-link"><i data-feather="compass"></i>Bitkileri Keşfet</a></li>
+          <li><a href="./about.html" class="nav-link"><i data-feather="info"></i>Hakkında</a></li>
         </ul>
       </nav>
     `;
