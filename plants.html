@@ -13,23 +13,31 @@
     <custom-navbar></custom-navbar>
     
     <!-- Plants Gallery Section -->
-    <section class="py-16 bg-gradient-to-b from-green-50 to-white">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800">
+    <section class="py-16 bg-gradient-to-b from-green-50 to-white relative overflow-hidden">
+        <!-- Parçacık efektleri -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800 animate-pulse">
         Bitki Galerisi 🌿
         </h1>
-            <p class="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto">
-        Doğanın yangına karşı geliştirdiği benzersiz stratejileri keşfedin
+            <p class="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto animate-bounce">
+        Doğanın yangına karşı geliştirdiği benzersiz stratejileri keşfedin ✨
         </p>
             
             <!-- Plants Grid -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300">
-                    <img src="images/plants/aloe-vera.jpg" alt="Aloe Vera" class="w-full h-48 object-cover plant-image" loading="lazy" decoding="async">
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/aloe-vera.jpg" alt="Aloe Vera" class="w-full h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async">
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-3">
-                            <h3 class="text-xl font-bold text-gray-800">Aloe Vera</h3>
-                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-200 text-green-900">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Aloe Vera 🌱</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-200 text-green-900 animate-pulse">
                                 Çok Yüksek
                             </span>
                         </div>
@@ -40,20 +48,20 @@
                                 Detaylı İncele →
                             </a>
                             <button onclick="audioSystem.playAudio('Aloe Vera', this)" 
-                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300"
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
                                     title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
-                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4"></i>
-                                Sesli Anlat
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
                             </button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300">
-                    <img src="images/plants/kaktus.jpg" alt="Kaktüs" class="w-full h-48 object-cover plant-image" loading="lazy" decoding="async">
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/kaktus.jpg" alt="Kaktüs" class="w-full h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async">
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-3">
-                            <h3 class="text-xl font-bold text-gray-800">Kaktüs</h3>
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Kaktüs 🌵</h3>
                             <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
                                 Yüksek
                             </span>
@@ -65,20 +73,20 @@
                                 Detaylı İncele →
                             </a>
                             <button onclick="audioSystem.playAudio('Kaktüs', this)" 
-                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300"
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
                                     title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
-                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4"></i>
-                                Sesli Anlat
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
                             </button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300">
-                    <img src="images/plants/ada-cayi.jpg" alt="Ada Çayı" class="w-full h-48 object-cover plant-image" loading="lazy" decoding="async">
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/ada-cayi.jpg" alt="Ada Çayı" class="w-full h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async">
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-3">
-                            <h3 class="text-xl font-bold text-gray-800">Ada Çayı</h3>
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Ada Çayı 🌿</h3>
                             <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
                                 Orta
                             </span>
@@ -286,6 +294,47 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.feather) feather.replace();
+            
+            // ✨ Ekstra animasyon efektleri
+            const plantCards = document.querySelectorAll('.plant-card');
+            
+            // Intersection Observer ile scroll animasyonları
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            plantCards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Mouse takip efekti
+            document.addEventListener('mousemove', (e) => {
+                const particles = document.querySelectorAll('.particle');
+                particles.forEach((particle, index) => {
+                    const speed = (index + 1) * 0.02;
+                    const x = e.clientX * speed;
+                    const y = e.clientY * speed;
+                    particle.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+            
+            // Sesli anlat butonlarına özel efekt
+            const audioButtons = document.querySelectorAll('.audio-button');
+            audioButtons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'scale(1.1) rotate(2deg)';
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    if (!button.classList.contains('playing')) {
+                        button.style.transform = 'scale(1) rotate(0deg)';
+                    }
+                });
+            });
         });
     </script>
 </body>

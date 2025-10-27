@@ -118,7 +118,7 @@ class SimpleAudioSystem {
         }
     }
 
-    // Ses dosyalarının yollarını tanımla
+    // Ses dosyalarının yollarını tanımla - Düzeltilmiş eşleştirme
     getAudioUrl(plantName) {
         const audioFiles = {
             'Aloe Vera': 'audio/plants/aloe-vera.mp3',
@@ -126,8 +126,8 @@ class SimpleAudioSystem {
             'Ada Çayı': 'audio/plants/ada-cayi.mp3',
             'Lavanta': 'audio/plants/lavanta.mp3',
             'Biberiye': 'audio/plants/biberiye.mp3',
-            'Defne': 'audio/plants/defne.mp3',
-            'Zeytin': 'audio/plants/zeytin.mp3',
+            'Defne': 'audio/plants/zeytin.mp3',  // Defne için zeytin.mp3 kullan
+            'Zeytin': 'audio/plants/defne.mp3',  // Zeytin için defne.mp3 kullan
             'Etli Sukulentler': 'audio/plants/etli-sukulentler.mp3',
             'Akasya': 'audio/plants/akasya.mp3',
             'Ortanca': 'audio/plants/ortanca.mp3'
@@ -170,6 +170,11 @@ class SimpleAudioSystem {
             buttonElement.innerHTML = '<i data-feather="pause" class="inline mr-2"></i>Durdur';
             buttonElement.classList.add('playing');
             buttonElement.title = 'Ses çalıyor... (1-1.5 dakika sürecek)';
+            
+            // ✨ Özel animasyon efekti ekle
+            buttonElement.style.animation = 'heartbeat 1s ease-in-out infinite';
+            buttonElement.style.transform = 'scale(1.05)';
+            
             feather.replace();
         }
 
@@ -228,6 +233,11 @@ class SimpleAudioSystem {
                 buttonElement.innerHTML = '<i data-feather="play" class="inline mr-2"></i>Devam Et';
                 buttonElement.classList.remove('playing');
                 buttonElement.title = 'Sesi devam ettir';
+                
+                // ✨ Animasyonu sıfırla
+                buttonElement.style.animation = '';
+                buttonElement.style.transform = '';
+                
                 feather.replace();
             }
         }
@@ -243,6 +253,11 @@ class SimpleAudioSystem {
                 buttonElement.innerHTML = '<i data-feather="pause" class="inline mr-2"></i>Durdur';
                 buttonElement.classList.add('playing');
                 buttonElement.title = 'Ses çalıyor...';
+                
+                // ✨ Özel animasyon efekti ekle
+                buttonElement.style.animation = 'heartbeat 1s ease-in-out infinite';
+                buttonElement.style.transform = 'scale(1.05)';
+                
                 feather.replace();
             }
         }
@@ -255,6 +270,10 @@ class SimpleAudioSystem {
             button.innerHTML = '<i data-feather="volume-2" class="inline mr-2"></i>Sesli Anlat';
             button.classList.remove('playing');
             button.title = 'Bitki hakkında sesli bilgi dinle';
+            
+            // ✨ Animasyonu sıfırla
+            button.style.animation = '';
+            button.style.transform = '';
         });
         feather.replace();
         
