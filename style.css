@@ -16,9 +16,21 @@
     --flower-pink: #ffb6c1;
 }
 
+/* Performance optimizations */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Quicksand', 'Inter', sans-serif;
     background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 50%, #ddeeff 100%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 /* Custom scrollbar */
@@ -39,9 +51,14 @@ body {
     background: linear-gradient(135deg, var(--forest-green), var(--leaf-green));
 }
 
-/* Smooth transitions for all interactive elements */
+/* Smooth transitions for all interactive elements - GPU optimized */
 * {
-    transition: all 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Only apply will-change to elements that need it */
+.plant-card, .audio-button, .particle, .plant-image {
+    will-change: transform;
 }
 
 /* Custom gradient backgrounds */
@@ -75,14 +92,16 @@ body {
     75% { border-radius: 40% 70% 30% 60% / 70% 40% 50% 30%; }
 }
 
-/* Card hover effects */
+/* Card hover effects - GPU optimized */
 .plant-card {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.9) 100%);
     border: 2px solid rgba(135, 169, 107, 0.2);
     backdrop-filter: blur(10px);
+    will-change: transform;
+    transform: translateZ(0); /* GPU layer */
 }
 
 .plant-card::before {
@@ -114,7 +133,10 @@ body {
 }
 
 .plant-image {
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    transform: translateZ(0); /* GPU layer */
+    backface-visibility: hidden; /* Smooth rendering */
 }
 
 /* Card shimmer effect */
@@ -165,13 +187,15 @@ body {
     box-shadow: 0 8px 25px rgba(45, 80, 22, 0.3);
 }
 
-/* Button animations */
+/* Button animations - GPU optimized */
 .audio-button {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, var(--leaf-green) 0%, var(--sage-green) 100%);
     border: 1px solid var(--forest-green);
+    will-change: transform;
+    transform: translateZ(0); /* GPU layer */
 }
 
 .audio-button:hover {
@@ -486,7 +510,7 @@ h1:hover::after, h2:hover::after, h3:hover::after {
     width: 100%;
 }
 
-/* Parçacık efekti */
+/* Parçacık efekti - GPU optimized */
 .particle {
     position: absolute;
     width: 4px;
@@ -495,6 +519,9 @@ h1:hover::after, h2:hover::after, h3:hover::after {
     border-radius: 50%;
     animation: float 3s ease-in-out infinite;
     pointer-events: none;
+    will-change: transform;
+    transform: translateZ(0); /* GPU layer */
+    backface-visibility: hidden;
 }
 
 .particle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
@@ -536,14 +563,121 @@ h1:hover::after, h2:hover::after, h3:hover::after {
     }
 }
 
-/* Responsive animasyonlar */
+/* 📱 MOBİL-FİRST RESPONSIVE TASARIM 📱 */
+
+/* Mobil için temel ayarlar */
 @media (max-width: 768px) {
-    .plant-card:hover {
-        transform: translateY(-4px) scale(1.01);
+    /* Grid düzeni - mobilde tek sütun */
+    .grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
     }
     
-    .audio-button:hover {
-        transform: translateY(-2px) scale(1.02);
+    /* Bitki kartları mobil optimizasyonu */
+    .plant-card {
+        margin: 0.5rem;
+        transform: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .plant-card:active {
+        transform: scale(0.98);
+    }
+    
+    /* Resimler mobil için */
+    .plant-image {
+        height: 200px !important;
+        transition: transform 0.3s ease;
+    }
+    
+    .plant-card:active .plant-image {
+        transform: scale(1.05);
+    }
+    
+    /* Butonlar touch-friendly */
+    .audio-button {
+        padding: 12px 20px !important;
+        font-size: 16px !important;
+        min-height: 48px;
+        touch-action: manipulation;
+    }
+    
+    .audio-button:active {
+        transform: scale(0.95);
+        background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
+    }
+    
+    /* Başlıklar mobil için */
+    h1 {
+        font-size: 2rem !important;
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Parçacık efektleri mobilde azalt */
+    .particle {
+        display: none;
+    }
+    
+    /* Container padding */
+    .container {
+        padding: 0 1rem !important;
+    }
+    
+    /* Section padding */
+    section {
+        padding: 2rem 0 !important;
+    }
+    
+    /* Footer mobil */
+    footer {
+        padding: 2rem 1rem !important;
+    }
+    
+    .footer-links {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    /* Navbar mobil */
+    nav {
+        padding: 1rem !important;
+    }
+    
+    .nav-links {
+        gap: 1rem !important;
+    }
+    
+    .nav-link {
+        padding: 0.75rem 1rem !important;
+        font-size: 16px !important;
+    }
+}
+
+/* Tablet için */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+    
+    .plant-image {
+        height: 180px !important;
+    }
+}
+
+/* Desktop için */
+@media (min-width: 1025px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 2rem !important;
     }
 }
 

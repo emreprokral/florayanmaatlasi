@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanım Şartları | Flora Yanma Atlası</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+    
+    <!-- Terms of Service Section -->
+    <section class="py-16 bg-gradient-to-b from-white to-green-50">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800">
+                Kullanım Şartları 📜
+            </h1>
+            <p class="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto">
+                Flamazing Flora Explorer kullanım koşullarını öğrenin
+            </p>
+            
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+                <div class="prose max-w-none">
+                    <h2 class="text-2xl font-bold mb-4">Kabul Edilebilir Kullanım</h2>
+                    <p class="mb-4">
+                        Flamazing Flora Explorer'u kullanarak bu şartları kabul etmiş olursunuz. 
+                        Sitenin içeriğini eğitim ve bilgilendirme amaçlı kullanabilirsiniz.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold mb-4 mt-8">Fikri Mülkiyet Hakları</h2>
+                    <p class="mb-4">
+                        Sitede yer alan tüm içerikler (metinler, görseller, ses dosyaları) 
+                        Flamazing Flora Explorer'a aittir. İzinsiz kopyalama, dağıtma veya 
+                        değiştirme hakkı saklıdır.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold mb-4 mt-8">Kullanıcı Sorumlulukları</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Sitedeki bilgileri doğru ve dürüst bir şekilde kullanmak</li>
+                        <li>Üçüncü taraf haklarını ihlal edecek şekilde içerik paylaşmamak</li>
+                        <li>Sitenin doğru çalışması için gerekli teknik şartları sağlamaktan sorumlu olmak</li>
+                    </ul>
+                    
+                    <h2 class="text-2xl font-bold mb-4 mt-8">Sınırlı Sorumluluk</h2>
+                    <p class="mb-4">
+                        Flamazing Flora Explorer, sitede yer alan bilgilerin doğruluğu, 
+                        eksiksizliği veya güncelliği konusunda hiçbir taahhütte bulunmaz. 
+                        Sitenin kullanımı sonucu oluşabilecek zararlardan sorumlu değildir.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold mb-4 mt-8">Değişiklikler</h2>
+                    <p class="mb-4">
+                        Bu kullanım şartları zaman zaman güncellenebilir. 
+                        Değişiklikler sitede yayınlandığı andan itibaren geçerli olacaktır.
+                    </p>
+                    
+                    <div class="mt-8 p-4 bg-orange-50 rounded-xl border border-orange-200">
+                        <p class="text-orange-800">
+                            <strong>Son Güncelleme:</strong> 2024-01-01
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <custom-footer></custom-footer>
+
+    <!-- Component Scripts -->
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
