@@ -38,8 +38,8 @@
     <custom-footer></custom-footer>
 
     <!-- Component Scripts -->
-    <script src="navbar.js" defer></script>
-    <script src="footer.js" defer></script>
+    <script src="components/js/navbar.js" defer></script>
+    <script src="components/js/footer.js" defer></script>
     <script src="script.js" defer></script>
     <script src="audio-system.js" defer></script>
     <script>
@@ -55,27 +55,27 @@
         document.addEventListener('DOMContentLoaded', () => {
             const plant = plantData.getPlantById(plantId);
             if (plant) {
-                document.getElementById('plant-detail-content').innerHTML = `
-                    <div class="grid lg:grid-cols-2 gap-12">
+                const html = `
+                    <div class="grid lg:grid-cols-2 gap-12 fade-in-up">
                         <!-- Plant Image -->
-                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                            <img src="${plant.image}" alt="${plant.name}" class="w-full h-96 object-cover plant-image" loading="lazy" decoding="async">
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden fade-in-scale fade-in-delay-1">
+                            <img src="${plant.image}" alt="${plant.name}" class="w-full h-80 md:h-96 object-cover plant-image" loading="lazy" decoding="async">
                         </div>
                         
                         <!-- Plant Info -->
-                        <div>
-                            <h1 class="text-4xl font-bold mb-4 text-gray-800">${plant.name}</h1>
+                        <div class="fade-in-up fade-in-delay-2">
+                            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">${plant.name}</h1>
                             <p class="text-gray-600 mb-2"><strong>Bilimsel Adı:</strong> ${plant.scientificName}</p>
                             
                             <div class="grid grid-cols-2 gap-4 my-6">
-                                <div class="bg-green-50 p-4 rounded-xl">
+                                <div class="bg-green-50 p-4 rounded-xl fade-in-up fade-in-delay-2">
                                     <i data-feather="zap" class="text-green-600 mb-2"></i>
                                     <h4 class="font-semibold text-gray-800">Yanma Hızı</h4>
                                     <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${utils.formatBurnSpeed(plant.burnSpeed)}">
                                         ${plant.burnSpeed}
                                     </span>
                                 </div>
-                                <div class="bg-orange-50 p-4 rounded-xl">
+                                <div class="bg-orange-50 p-4 rounded-xl fade-in-up fade-in-delay-3">
                                     <i data-feather="shield" class="text-orange-600 mb-2"></i>
                                     <h4 class="font-semibold text-gray-800">Yangın Direnci</h4>
                                     <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${utils.formatFireResistance(plant.fireResistance)}">
@@ -84,13 +84,13 @@
                                 </div>
                             </div>
                             
-                            <div class="bg-white p-6 rounded-xl shadow-md border border-green-200 mb-6">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-green-200 mb-6 fade-in-up">
                                 <h3 class="text-xl font-bold mb-3 text-gray-800">Koruma Mekanizması</h3>
                                 <p class="text-gray-600 leading-relaxed">${plant.protectionMechanism}</p>
                             </div>
                             
                             <!-- Audio Player -->
-                            <div class="audio-player p-4 rounded-xl text-white mb-6">
+                            <div class="audio-player p-4 rounded-xl text-white mb-6 fade-in-up">
                                 <h3 class="text-lg font-semibold mb-3">Sesli Anlatım 🎧</h3>
                                 <div class="flex items-center gap-4">
                                     <button onclick="audioSystem.playAudio('${plant.name}', this)" 
@@ -106,13 +106,15 @@
                                 </div>
                             </div>
                             
-                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 fade-in-up">
                                 <h3 class="text-xl font-bold mb-3 text-gray-800">Bilimsel Açıklama</h3>
                                 <p class="text-gray-600 leading-relaxed">${plant.description}</p>
                             </div>
                         </div>
                     </div>
                 `;
+                const container = document.getElementById('plant-detail-content');
+                container.innerHTML = html;
                 if (window.feather) feather.replace();
             } else {
                 document.getElementById('plant-detail-content').innerHTML = `

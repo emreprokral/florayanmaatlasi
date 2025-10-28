@@ -351,6 +351,20 @@ body {
     animation: spin 1s linear infinite;
 }
 
+/* Helper animation utility classes for JS-injected content */
+.fade-in-up { animation: fadeInUp 0.6s ease-out both; }
+.fade-in-scale { animation: fadeInScale 0.6s ease-out both; }
+.fade-in-delay-1 { animation-delay: 0.1s; }
+.fade-in-delay-2 { animation-delay: 0.2s; }
+.fade-in-delay-3 { animation-delay: 0.3s; }
+
+/* Page transition */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+.page-fade-out { animation: fadeOut 0.25s ease forwards; }
+
 /* ✨ YENİ SÜPER ANİMASYONLAR ✨ */
 
 /* Parçacık efekti için */
