@@ -59,7 +59,7 @@
                     <div class="grid lg:grid-cols-2 gap-12 fade-in-up">
                         <!-- Plant Image -->
                         <div class="bg-white rounded-2xl shadow-lg overflow-hidden fade-in-scale fade-in-delay-1">
-                            <img src="${plant.image}" alt="${plant.name}" class="w-full h-80 md:h-96 object-cover plant-image" loading="lazy" decoding="async">
+                            <img src="${plant.image}" alt="${plant.name}" class="w-full h-80 md:h-96 object-cover plant-image cursor-zoom-in" loading="lazy" decoding="async" onclick="showImageModal('${plant.image}')">
                         </div>
                         
                         <!-- Plant Info -->
@@ -129,6 +129,24 @@
                 if (window.feather) feather.replace();
             }
         });
+    </script>
+    <!-- IMAGE MODAL -->
+    <div id="image-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;" onclick="hideImageModal()">
+        <img id="image-modal-img" src="" alt="Büyük Görsel" style="max-width:90vw; max-height:90vh; border-radius:2rem; box-shadow:0 0 30px #0008; display:block; margin:auto;">
+    </div>
+    <script>
+    function showImageModal(imgSrc) {
+        const overlay = document.getElementById('image-modal-overlay');
+        const img = document.getElementById('image-modal-img');
+        img.src = imgSrc;
+        overlay.style.display = 'flex';
+        setTimeout(() => { overlay.style.opacity = 1; }, 20);
+    }
+    function hideImageModal() {
+        const overlay = document.getElementById('image-modal-overlay');
+        overlay.style.opacity = 0;
+        setTimeout(() => { overlay.style.display = 'none'; }, 200);
+    }
     </script>
 </body>
 </html>
