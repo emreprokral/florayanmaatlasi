@@ -148,5 +148,58 @@
         setTimeout(() => { overlay.style.display = 'none'; }, 200);
     }
     </script>
+    
+    <!-- LEAF OVERLAY EFFECT -->
+    <div id="leaf-overlay"
+         style="position:fixed;inset:0;z-index:20000;pointer-events:none;background:rgba(255,255,255,1);display:flex;flex-wrap:wrap;justify-content:center;align-items:center;"></div>
+    <script>
+    // Yaprak overlay efekt scripti
+    (function() {
+      const LEAF_IMG = 'images/plants/yaprak-kucuk-resim-cizgi-film-illustrasyon-cizimi_871209-9307.png';
+      const LEAF_COUNT = Math.floor(window.innerWidth * window.innerHeight / 9000); // ekran yoğunluğuna bağlı
+      const overlay = document.getElementById('leaf-overlay');
+      if (!overlay) return;
+
+      // YAPRAK ELEMENTLERİ EKLE
+      for (let i = 0; i < LEAF_COUNT; i++) {
+        const leaf = document.createElement('img');
+        leaf.src = LEAF_IMG;
+        leaf.alt = 'Yaprak';
+        leaf.style.position = 'absolute';
+        // Rastgele konumlama
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        leaf.style.left = `${x}%`;
+        leaf.style.top = `${y}%`;
+        // Farklı boyut ve açılar
+        const size = 40 + Math.random() * 80; // px
+        leaf.style.width = `${size}px`;
+        leaf.style.height = 'auto';
+        leaf.style.transform = `rotate(${Math.random()*360}deg) scale(${0.7 + Math.random()*0.6})`;
+        leaf.style.opacity = '1';
+        leaf.style.transition =
+          'opacity 1.8s cubic-bezier(.7,0,.5,1), transform 1.8s cubic-bezier(.7,0,.5,1)';
+        overlay.appendChild(leaf);
+      }
+      overlay.style.pointerEvents = 'all';
+
+      // BİRAZ BEKLE, SONRA YAPRAKLARI KAYBET
+      setTimeout(() => {
+        overlay.childNodes.forEach((leaf, idx) => {
+          // Minik rastgele gecikmeler
+          setTimeout(() => {
+            leaf.style.opacity = '0';
+            leaf.style.transform += ' scale(0.6)';
+          }, Math.random()*600);
+        });
+        overlay.style.background = 'rgba(255,255,255,0.0)';
+      }, 600);
+
+      // Animasyon bittiğinde overlay'i tamamen kaldır
+      setTimeout(() => {
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      }, 2500);
+    })();
+    </script>
 </body>
 </html>
