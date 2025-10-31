@@ -232,3 +232,220 @@ const utils = {
 window.audioManager = audioManager;
 window.plantData = plantData;
 window.utils = utils;
+
+// THEME: Dark mode support (refined)
+(function() {
+    const THEME_KEY = 'theme';
+    const root = document.documentElement;
+
+    function applyTheme(theme) {
+        if (theme === 'dark') root.classList.add('dark'); else root.classList.remove('dark');
+    }
+    function getTheme() {
+        const saved = localStorage.getItem(THEME_KEY);
+        return (saved === 'dark' || saved === 'light') ? saved : 'light'; // default light
+    }
+    function setTheme(theme) {
+        localStorage.setItem(THEME_KEY, theme);
+        applyTheme(theme);
+        const btn = document.getElementById('theme-toggle');
+        if (btn) updateButtonStyle(btn, theme);
+    }
+
+    function updateButtonStyle(btn, theme) {
+        btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        btn.textContent = theme === 'dark' ? '🌙' : '☀️';
+        if (theme === 'dark') {
+            btn.style.background = 'rgba(31,41,55,0.9)';
+            btn.style.color = '#e5e7eb';
+            btn.style.border = '1px solid rgba(255,255,255,0.15)';
+            btn.style.boxShadow = '0 10px 24px rgba(0,0,0,0.45)';
+        } else {
+            btn.style.background = '#ffffff';
+            btn.style.color = '#111827';
+            btn.style.border = '1px solid rgba(0,0,0,0.12)';
+            btn.style.boxShadow = '0 10px 24px rgba(0,0,0,0.15)';
+        }
+    }
+
+    function ensureToggleButton() {
+        if (document.getElementById('theme-toggle')) return;
+        const btn = document.createElement('button');
+        btn.id = 'theme-toggle';
+        btn.type = 'button';
+        btn.title = 'Tema: Açık/Karanlık';
+        btn.setAttribute('aria-label', 'Tema değiştir');
+        btn.style.position = 'fixed';
+        btn.style.right = '14px';
+        btn.style.top = '14px';
+        btn.style.zIndex = '999999';
+        btn.style.padding = '10px 12px';
+        btn.style.borderRadius = '9999px';
+        btn.style.cursor = 'pointer';
+        btn.style.fontWeight = '700';
+        btn.style.fontSize = '16px';
+        btn.style.lineHeight = '1';
+        btn.style.backdropFilter = 'blur(8px)';
+        btn.style.webkitBackdropFilter = 'blur(8px)';
+        const current = getTheme();
+        updateButtonStyle(btn, current);
+        btn.addEventListener('click', () => {
+            const next = (root.classList.contains('dark') ? 'light' : 'dark');
+            setTheme(next);
+        });
+        document.body.appendChild(btn);
+    }
+
+    // Initialize theme early
+    applyTheme(getTheme());
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', ensureToggleButton, { once: true });
+    } else if (document.body) {
+        ensureToggleButton();
+    } else {
+        window.addEventListener('load', ensureToggleButton, { once: true });
+    }
+})();
+
+// BGM: Site-wide background music with persistent toggle
+(function() {
+    const STORAGE_KEY_ENABLED = 'bgm_enabled';
+    const STORAGE_KEY_VOLUME = 'bgm_volume';
+    const DEFAULT_VOLUME = 0.15; // gentle
+    const SRC = 'audio/plants/lavanta.mp3'; // calm default
+
+    let audioEl = null;
+    let isEnabled = localStorage.getItem(STORAGE_KEY_ENABLED) === 'true';
+    let volume = Math.min(1, Math.max(0, parseFloat(localStorage.getItem(STORAGE_KEY_VOLUME) || String(DEFAULT_VOLUME))));
+
+    function ensureAudio() {
+        if (audioEl) return audioEl;
+        audioEl = new Audio(SRC);
+        audioEl.loop = true;
+        audioEl.preload = 'auto';
+        audioEl.volume = volume;
+        audioEl.crossOrigin = 'anonymous';
+        return audioEl;
+    }
+
+    function persist() {
+        localStorage.setItem(STORAGE_KEY_ENABLED, String(isEnabled));
+        localStorage.setItem(STORAGE_KEY_VOLUME, String(volume));
+    }
+
+    function playSafe() {
+        const a = ensureAudio();
+        const attempt = () => a.play().catch(() => {/* autoplay blocked until user gesture */});
+        attempt();
+    }
+
+    function stop() {
+        if (!audioEl) return;
+        try { audioEl.pause(); } catch(_){}
+    }
+
+    function setVolume(v) {
+        volume = Math.min(1, Math.max(0, v));
+        if (audioEl) audioEl.volume = volume;
+        persist();
+        const slider = document.getElementById('bgm-volume');
+        if (slider) slider.value = String(Math.round(volume * 100));
+    }
+
+    function updateBtnUI(btn) {
+        btn.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        btn.querySelector('[data-icon]').textContent = isEnabled ? '🔊' : '🔈';
+        btn.querySelector('[data-label]').textContent = isEnabled ? 'BGM Açık' : 'BGM Kapalı';
+    }
+
+    function createUI() {
+        if (document.getElementById('bgm-toggle')) return;
+        const wrap = document.createElement('div');
+        wrap.id = 'bgm-toggle';
+        wrap.style.position = 'fixed';
+        wrap.style.left = '14px';
+        wrap.style.bottom = '14px';
+        wrap.style.zIndex = '999999';
+        wrap.style.display = 'flex';
+        wrap.style.gap = '8px';
+        wrap.style.alignItems = 'center';
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.title = 'Arka plan müziği';
+        btn.setAttribute('aria-label', 'Arka plan müziği');
+        btn.style.padding = '8px 12px';
+        btn.style.borderRadius = '9999px';
+        btn.style.cursor = 'pointer';
+        btn.style.fontWeight = '700';
+        btn.style.fontSize = '14px';
+        btn.style.lineHeight = '1';
+        btn.style.border = '1px solid rgba(0,0,0,0.12)';
+        btn.style.background = '#ffffff';
+        btn.style.color = '#111827';
+        btn.style.boxShadow = '0 10px 24px rgba(0,0,0,0.15)';
+        btn.innerHTML = '<span data-icon>🔈</span> <span data-label>BGM Kapalı</span>';
+        btn.addEventListener('click', () => {
+            isEnabled = !isEnabled;
+            if (isEnabled) {
+                playSafe();
+            } else {
+                stop();
+            }
+            persist();
+            updateBtnUI(btn);
+        });
+
+        const vol = document.createElement('input');
+        vol.type = 'range';
+        vol.min = '0';
+        vol.max = '100';
+        vol.value = String(Math.round(volume * 100));
+        vol.id = 'bgm-volume';
+        vol.title = 'Ses';
+        vol.style.width = '110px';
+        vol.style.cursor = 'pointer';
+        vol.addEventListener('input', () => setVolume(parseInt(vol.value, 10) / 100));
+
+        // Dark theme adjustments on init
+        const applyThemeStyles = () => {
+            const dark = document.documentElement.classList.contains('dark');
+            if (dark) {
+                btn.style.background = 'rgba(31,41,55,0.9)';
+                btn.style.color = '#e5e7eb';
+                btn.style.border = '1px solid rgba(255,255,255,0.15)';
+                btn.style.boxShadow = '0 10px 24px rgba(0,0,0,0.45)';
+            } else {
+                btn.style.background = '#ffffff';
+                btn.style.color = '#111827';
+                btn.style.border = '1px solid rgba(0,0,0,0.12)';
+                btn.style.boxShadow = '0 10px 24px rgba(0,0,0,0.15)';
+            }
+        };
+        applyThemeStyles();
+        const mo = new MutationObserver(applyThemeStyles);
+        mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+        updateBtnUI(btn);
+        wrap.appendChild(btn);
+        wrap.appendChild(vol);
+        document.body.appendChild(wrap);
+    }
+
+    // Start on first user interaction if enabled
+    function attachGestureStart() {
+        const handler = () => {
+            document.removeEventListener('pointerdown', handler);
+            if (isEnabled) playSafe();
+        };
+        document.addEventListener('pointerdown', handler, { passive: true });
+    }
+
+    // Init UI
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => { createUI(); attachGestureStart(); }, { once: true });
+    } else {
+        createUI(); attachGestureStart();
+    }
+})();

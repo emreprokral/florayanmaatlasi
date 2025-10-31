@@ -53,7 +53,7 @@ body {
 
 /* Smooth transitions for all interactive elements - GPU optimized */
 * {
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 /* Only apply will-change to elements that need it */
@@ -737,3 +737,61 @@ h1:hover::after, h2:hover::after, h3:hover::after {
     font-size: 20px;
     animation: bounce 1s ease-in-out infinite;
 }
+
+/* Dark mode - broader coverage */
+html.dark body {
+    background: linear-gradient(135deg, #0b1220 0%, #0e1726 50%, #0b1324 100%);
+    color: #e5e7eb;
+}
+
+/* Generic backgrounds and text colors used across pages */
+html.dark .bg-white { background-color: #0f172a !important; }
+html.dark .text-gray-800 { color: #e5e7eb !important; }
+html.dark .text-gray-700 { color: #e5e7eb !important; }
+html.dark .text-gray-600 { color: #d1d5db !important; }
+html.dark .text-gray-500 { color: #9ca3af !important; }
+
+/* Light pastel backgrounds → subtle dark surfaces */
+html.dark .bg-green-50,
+html.dark .bg-blue-50,
+html.dark .bg-orange-50,
+html.dark .bg-yellow-50 { background-color: rgba(255,255,255,0.04) !important; }
+
+/* Borders */
+html.dark .border,
+html.dark [class*="border-"] { border-color: rgba(255,255,255,0.12) !important; }
+
+/* Gradients often used as section backgrounds */
+html.dark .bg-gradient-to-b,
+html.dark .bg-gradient-to-r,
+html.dark .bg-gradient-to-tr,
+html.dark .bg-gradient-to-br { background: linear-gradient(180deg, #0b1220 0%, #0e1726 100%) !important; }
+
+/* Cards already handled, but ensure other containers look dark */
+html.dark .shadow-md,
+html.dark .shadow-lg { box-shadow: 0 10px 30px rgba(0,0,0,0.45) !important; }
+
+/* Links */
+html.dark a { color: #93c5fd; }
+html.dark a:hover { color: #60a5fa; }
+
+/* Audio player (extra) */
+html.dark .audio-player { background: linear-gradient(135deg, #065f46, #064e3b); border-color: rgba(255,255,255,0.12); }
+html.dark .audio-progress-container { background: rgba(255,255,255,0.15) !important; }
+html.dark .audio-progress { background: rgba(255,255,255,0.75) !important; }
+
+/* Scrollbars */
+html.dark ::-webkit-scrollbar-track { background: #111827; }
+html.dark ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #10b981, #34d399); }
+
+/* Headings */
+html.dark h1, html.dark h2, html.dark h3 { color: #e5e7eb; }
+
+html.dark .plant-card {
+    background: #0f172a; /* near-black, slightly lighter than pure black */
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+/* Light surfaces in dark mode should be near-black but a touch lighter */
+html.dark .bg-white { background-color: #0f172a !important; }
