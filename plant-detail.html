@@ -141,7 +141,7 @@
         img.src = imgSrc;
         overlay.style.display = 'flex';
         setTimeout(() => { overlay.style.opacity = 1; }, 20);
-    }
+    }   
     function hideImageModal() {
         const overlay = document.getElementById('image-modal-overlay');
         overlay.style.opacity = 0;
@@ -149,56 +149,151 @@
     }
     </script>
     
-    <!-- LEAF OVERLAY EFFECT -->
+    <!-- LEAF OVERLAY EFFECT (CANVAS OPTIMIZED) -->
+    <style id="leaf-overlay-style">
+      #leaf-overlay { contain: layout paint size style; }
+      #leaf-overlay-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    </style>
     <div id="leaf-overlay"
-         style="position:fixed;inset:0;z-index:20000;pointer-events:none;background:rgba(255,255,255,1);display:flex;flex-wrap:wrap;justify-content:center;align-items:center;"></div>
+         style="position:fixed;inset:0;z-index:20000;pointer-events:none;background:rgba(255,255,255,1);display:block;">
+      <canvas id="leaf-overlay-canvas"></canvas>
+    </div>
     <script>
-    // Yaprak overlay efekt scripti
+    // High-performance leaf overlay: single canvas, ImageBitmap, staggered fast fade
     (function() {
       const LEAF_IMG = 'images/plants/yaprak-kucuk-resim-cizgi-film-illustrasyon-cizimi_871209-9307.png';
-      const LEAF_COUNT = Math.floor(window.innerWidth * window.innerHeight / 9000); // ekran yoğunluğuna bağlı
       const overlay = document.getElementById('leaf-overlay');
-      if (!overlay) return;
+      const canvas = document.getElementById('leaf-overlay-canvas');
+      if (!overlay || !canvas) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap DPR for perf
+      const ww = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      const wh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      canvas.width = Math.ceil(ww * dpr);
+      canvas.height = Math.ceil(wh * dpr);
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+      ctx.imageSmoothingEnabled = true;
 
-      // YAPRAK ELEMENTLERİ EKLE
-      for (let i = 0; i < LEAF_COUNT; i++) {
-        const leaf = document.createElement('img');
-        leaf.src = LEAF_IMG;
-        leaf.alt = 'Yaprak';
-        leaf.style.position = 'absolute';
-        // Rastgele konumlama
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        leaf.style.left = `${x}%`;
-        leaf.style.top = `${y}%`;
-        // Farklı boyut ve açılar
-        const size = 40 + Math.random() * 80; // px
-        leaf.style.width = `${size}px`;
-        leaf.style.height = 'auto';
-        leaf.style.transform = `rotate(${Math.random()*360}deg) scale(${0.7 + Math.random()*0.6})`;
-        leaf.style.opacity = '1';
-        leaf.style.transition =
-          'opacity 1.8s cubic-bezier(.7,0,.5,1), transform 1.8s cubic-bezier(.7,0,.5,1)';
-        overlay.appendChild(leaf);
+      // Density heuristic + caps for very low-end
+      const baseCount = Math.floor((ww * wh) / 700);
+      const LEAF_COUNT = Math.max(260, Math.min(520, baseCount));
+
+      // Placement helpers (lightweight bin to avoid extreme overlap)
+      const BIN_SIZE = 120;
+      const cols = Math.ceil(ww / BIN_SIZE) + 2;
+      const rows = Math.ceil(wh / BIN_SIZE) + 2;
+      const bins = new Array(rows).fill(null).map(() => new Array(cols).fill(0));
+      const maxPerBin = 4;
+      const margin = 10;
+      function tryPlace(xMin, xMax, yMin, yMax) {
+        for (let attempt = 0; attempt < 20; attempt++) {
+          const x = xMin + Math.random() * (xMax - xMin);
+          const y = yMin + Math.random() * (yMax - yMin);
+          const c = Math.max(0, Math.min(cols-1, Math.floor((x + 0.01) / BIN_SIZE)));
+          const r = Math.max(0, Math.min(rows-1, Math.floor((y + 0.01) / BIN_SIZE)));
+          if (bins[r][c] < maxPerBin) { bins[r][c]++; return { x, y }; }
+        }
+        return { x: xMin + Math.random() * (xMax - xMin), y: yMin + Math.random() * (yMax - yMin) };
       }
-      overlay.style.pointerEvents = 'all';
 
-      // BİRAZ BEKLE, SONRA YAPRAKLARI KAYBET
-      setTimeout(() => {
-        overlay.childNodes.forEach((leaf, idx) => {
-          // Minik rastgele gecikmeler
-          setTimeout(() => {
-            leaf.style.opacity = '0';
-            leaf.style.transform += ' scale(0.6)';
-          }, Math.random()*600);
-        });
-        overlay.style.background = 'rgba(255,255,255,0.0)';
-      }, 600);
+      const leaves = [];
+      function pushLeaf(x, y, wMin, wMax, sMin, sMax) {
+        const width = wMin + Math.random() * (wMax - wMin);
+        const scale = sMin + Math.random() * (sMax - sMin);
+        const rot = Math.random() * Math.PI * 2; // radians
+        // Staggered fade: random delay (ms) and duration (ms)
+        const delay = 140 + Math.random() * 680;
+        const duration = 500 + Math.random() * 450;
+        leaves.push({ x, y, width, scale, rot, delay, duration, alpha: 1 });
+      }
 
-      // Animasyon bittiğinde overlay'i tamamen kaldır
-      setTimeout(() => {
-        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-      }, 2500);
+      // Core distribution
+      for (let i = 0; i < LEAF_COUNT; i++) {
+        const p = tryPlace(margin, ww - margin, margin, wh - margin);
+        pushLeaf(p.x, p.y, 38, 95, 0.58, 1.25);
+      }
+      // Top edge cluster
+      const topCount = Math.floor(LEAF_COUNT * 0.45);
+      for (let i = 0; i < topCount; i++) {
+        const p = tryPlace(0, ww, -26, 64);
+        pushLeaf(p.x, p.y, 30, 88, 0.58, 1.15);
+      }
+      // Left edge cluster
+      const leftCount = Math.floor(LEAF_COUNT * 0.32);
+      for (let i = 0; i < leftCount; i++) {
+        const p = tryPlace(-30, 68, 0, wh);
+        pushLeaf(p.x, p.y, 30, 90, 0.53, 1.2);
+      }
+
+      // Preload → ImageBitmap for faster draw
+      function start(imgBitmap) {
+        // Draw loop with per-leaf alpha
+        const startTime = performance.now();
+        let maxEnd = 0;
+        for (const lf of leaves) {
+          const end = lf.delay + lf.duration;
+          if (end > maxEnd) maxEnd = end;
+        }
+        const totalEnd = maxEnd + 220;
+
+        function draw(now) {
+          const t = now - startTime;
+          // Clear
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.save();
+          ctx.scale(dpr, dpr);
+          // Draw all leaves
+          for (const lf of leaves) {
+            // Compute alpha
+            if (t <= lf.delay) {
+              lf.alpha = 1;
+            } else {
+              const p = Math.min(1, (t - lf.delay) / lf.duration);
+              lf.alpha = 1 - p;
+            }
+            if (lf.alpha <= 0) continue;
+            ctx.globalAlpha = lf.alpha;
+            ctx.save();
+            ctx.translate(lf.x, lf.y);
+            ctx.rotate(lf.rot);
+            const w = lf.width;
+            const h = w; // assume roughly square sprite
+            const s = lf.scale;
+            ctx.scale(s, s);
+            ctx.drawImage(imgBitmap, -w/2, -h/2, w, h);
+            ctx.restore();
+          }
+          ctx.restore();
+
+          if (t < totalEnd) {
+            requestAnimationFrame(draw);
+          } else {
+            // fade overlay bg and remove
+            overlay.style.transition = 'background 180ms linear';
+            overlay.style.background = 'rgba(255,255,255,0)';
+            setTimeout(() => {
+              if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            }, 220);
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      const img = new Image();
+      img.src = LEAF_IMG;
+      const begin = () => {
+        if (window.createImageBitmap) {
+          createImageBitmap(img, { imageOrientation: 'none', premultiplyAlpha: 'premultiply' })
+            .then(start)
+            .catch(() => start(img));
+        } else {
+          start(img);
+        }
+      };
+      if (img.decode) {
+        img.decode().then(begin).catch(begin);
+      } else {
+        img.onload = begin; img.onerror = begin;
+      }
     })();
     </script>
 </body>
