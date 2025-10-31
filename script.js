@@ -243,7 +243,7 @@ window.utils = utils;
     }
     function getTheme() {
         const saved = localStorage.getItem(THEME_KEY);
-        return (saved === 'dark' || saved === 'light') ? saved : 'light'; // default light
+        return (saved === 'dark' || saved === 'light') ? saved : 'light';
     }
     function setTheme(theme) {
         localStorage.setItem(THEME_KEY, theme);
@@ -276,15 +276,16 @@ window.utils = utils;
         btn.title = 'Tema: Açık/Karanlık';
         btn.setAttribute('aria-label', 'Tema değiştir');
         btn.style.position = 'fixed';
-        btn.style.right = '14px';
-        btn.style.top = '14px';
-        btn.style.zIndex = '999999';
+        btn.style.right = 'max(14px, env(safe-area-inset-right, 0px))';
+        btn.style.top = 'max(14px, env(safe-area-inset-top, 0px))';
+        btn.style.zIndex = '2147483647';
         btn.style.padding = '10px 12px';
         btn.style.borderRadius = '9999px';
         btn.style.cursor = 'pointer';
         btn.style.fontWeight = '700';
         btn.style.fontSize = '16px';
         btn.style.lineHeight = '1';
+        btn.style.touchAction = 'manipulation';
         btn.style.backdropFilter = 'blur(8px)';
         btn.style.webkitBackdropFilter = 'blur(8px)';
         const current = getTheme();
@@ -293,10 +294,14 @@ window.utils = utils;
             const next = (root.classList.contains('dark') ? 'light' : 'dark');
             setTheme(next);
         });
+        // Mobile sizing
+        if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+            btn.style.padding = '12px 14px';
+            btn.style.fontSize = '18px';
+        }
         document.body.appendChild(btn);
     }
 
-    // Initialize theme early
     applyTheme(getTheme());
 
     if (document.readyState === 'loading') {
@@ -312,8 +317,8 @@ window.utils = utils;
 (function() {
     const STORAGE_KEY_ENABLED = 'bgm_enabled';
     const STORAGE_KEY_VOLUME = 'bgm_volume';
-    const DEFAULT_VOLUME = 0.15; // gentle
-    const SRC = 'audio/plants/lavanta.mp3'; // calm default
+    const DEFAULT_VOLUME = 0.15;
+    const SRC = 'audio/plants/lavanta.mp3';
 
     let audioEl = null;
     let isEnabled = localStorage.getItem(STORAGE_KEY_ENABLED) === 'true';
@@ -336,8 +341,7 @@ window.utils = utils;
 
     function playSafe() {
         const a = ensureAudio();
-        const attempt = () => a.play().catch(() => {/* autoplay blocked until user gesture */});
-        attempt();
+        a.play().catch(() => {/* need user gesture; handled below */});
     }
 
     function stop() {
@@ -364,9 +368,9 @@ window.utils = utils;
         const wrap = document.createElement('div');
         wrap.id = 'bgm-toggle';
         wrap.style.position = 'fixed';
-        wrap.style.left = '14px';
-        wrap.style.bottom = '14px';
-        wrap.style.zIndex = '999999';
+        wrap.style.left = 'max(14px, env(safe-area-inset-left, 0px))';
+        wrap.style.bottom = 'max(14px, env(safe-area-inset-bottom, 0px))';
+        wrap.style.zIndex = '2147483647';
         wrap.style.display = 'flex';
         wrap.style.gap = '8px';
         wrap.style.alignItems = 'center';
@@ -385,14 +389,12 @@ window.utils = utils;
         btn.style.background = '#ffffff';
         btn.style.color = '#111827';
         btn.style.boxShadow = '0 10px 24px rgba(0,0,0,0.15)';
+        btn.style.touchAction = 'manipulation';
         btn.innerHTML = '<span data-icon>🔈</span> <span data-label>BGM Kapalı</span>';
+
         btn.addEventListener('click', () => {
             isEnabled = !isEnabled;
-            if (isEnabled) {
-                playSafe();
-            } else {
-                stop();
-            }
+            if (isEnabled) playSafe(); else stop();
             persist();
             updateBtnUI(btn);
         });
@@ -404,11 +406,19 @@ window.utils = utils;
         vol.value = String(Math.round(volume * 100));
         vol.id = 'bgm-volume';
         vol.title = 'Ses';
-        vol.style.width = '110px';
+        vol.style.width = '120px';
         vol.style.cursor = 'pointer';
+        vol.style.touchAction = 'manipulation';
         vol.addEventListener('input', () => setVolume(parseInt(vol.value, 10) / 100));
 
-        // Dark theme adjustments on init
+        // Mobile sizing
+        if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+            btn.style.padding = '12px 14px';
+            btn.style.fontSize = '16px';
+            vol.style.width = '140px';
+        }
+
+        // Dark theme sync
         const applyThemeStyles = () => {
             const dark = document.documentElement.classList.contains('dark');
             if (dark) {
@@ -442,7 +452,6 @@ window.utils = utils;
         document.addEventListener('pointerdown', handler, { passive: true });
     }
 
-    // Init UI
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => { createUI(); attachGestureStart(); }, { once: true });
     } else {
