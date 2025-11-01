@@ -29,12 +29,54 @@
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800 animate-pulse">
         Bitki Galerisi 🌿
         </h1>
-            <p class="text-lg sm:text-xl text-center mb-8 md:mb-12 text-gray-600 max-w-3xl mx-auto animate-bounce px-4">
+            <p class="text-lg sm:text-xl text-center mb-4 text-gray-600 max-w-3xl mx-auto px-4">
         Doğanın yangına karşı geliştirdiği benzersiz stratejileri keşfedin ✨
         </p>
             
+            <!-- Search and Filter Section -->
+            <div class="max-w-4xl mx-auto mb-8">
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-green-100">
+                    <!-- Search Box -->
+                    <div class="mb-4">
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="plant-search" 
+                                placeholder="Bitki ara... 🌿" 
+                                class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                            >
+                            <i data-feather="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold bg-green-500 text-white transition-all" data-filter="all">
+                            Tümü
+                        </button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-800 hover:bg-green-200 transition-all" data-filter="resistance-high">
+                            Çok Dayanıklı
+                        </button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800 hover:bg-yellow-200 transition-all" data-filter="resistance-medium">
+                            Orta Dayanıklı
+                        </button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-blue-100 text-blue-800 hover:bg-blue-200 transition-all" data-filter="burn-slow">
+                            Yavaş Yanan
+                        </button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-orange-100 text-orange-800 hover:bg-orange-200 transition-all" data-filter="burn-fast">
+                            Hızlı Yanan
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Results Counter -->
+                <div id="results-counter" class="text-center mt-4 text-gray-600 font-medium">
+                    <span id="results-count">10</span> bitki gösteriliyor
+                </div>
+            </div>
+            
             <!-- Plants Grid - Mobil First -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-6xl mx-auto">
+            <div id="plants-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-6xl mx-auto">
                 <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
                     <img src="images/plants/aloe-vera.jpg" alt="Aloe Vera" class="w-full h-40 sm:h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="p-4 md:p-6">
@@ -294,6 +336,99 @@
     <script src="components/js/footer.js" defer></script>
     <script src="script.js" defer></script>
     <script src="audio-system.js" defer></script>
+    <script>
+        // Search and Filter Functionality
+        (function() {
+            function initSearchAndFilter() {
+                const searchInput = document.getElementById('plant-search');
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const plantCards = document.querySelectorAll('.plant-card');
+                const resultsCounter = document.getElementById('results-count');
+                
+                let currentFilter = 'all';
+                let searchQuery = '';
+                
+                // Plant data mapping for filtering
+                const plantData = {
+                    1: { name: 'Aloe Vera', resistance: 'Çok Yüksek', burnSpeed: 'Çok Düşük', id: 1 },
+                    2: { name: 'Kaktüs', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 2 },
+                    3: { name: 'Ada Çayı', resistance: 'Orta', burnSpeed: 'Orta', id: 3 },
+                    4: { name: 'Lavanta', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 4 },
+                    5: { name: 'Biberiye', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 5 },
+                    6: { name: 'Defne', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 6 },
+                    7: { name: 'Zeytin', resistance: 'Çok Yüksek', burnSpeed: 'Çok Düşük', id: 7 },
+                    8: { name: 'Etli Sukulentler', resistance: 'Çok Yüksek', burnSpeed: 'Çok Düşük', id: 8 },
+                    9: { name: 'Akasya', resistance: 'Orta', burnSpeed: 'Orta', id: 9 },
+                    10: { name: 'Ortanca', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 10 }
+                };
+                
+                function filterPlants() {
+                    let visibleCount = 0;
+                    
+                    plantCards.forEach((card, index) => {
+                        const plantId = index + 1;
+                        const data = plantData[plantId];
+                        if (!data) return;
+                        
+                        // Check filter
+                        let matchesFilter = false;
+                        switch(currentFilter) {
+                            case 'all':
+                                matchesFilter = true;
+                                break;
+                            case 'resistance-high':
+                                matchesFilter = data.resistance === 'Çok Yüksek';
+                                break;
+                            case 'resistance-medium':
+                                matchesFilter = data.resistance === 'Orta';
+                                break;
+                            case 'burn-slow':
+                                matchesFilter = data.burnSpeed === 'Düşük' || data.burnSpeed === 'Çok Düşük';
+                                break;
+                            case 'burn-fast':
+                                matchesFilter = data.burnSpeed === 'Yüksek' || data.burnSpeed === 'Çok Yüksek';
+                                break;
+                        }
+                        
+                        // Check search
+                        const matchesSearch = !searchQuery || 
+                            data.name.toLowerCase().includes(searchQuery.toLowerCase());
+                        
+                        // Show/hide card
+                        if (matchesFilter && matchesSearch) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update counter
+                    resultsCounter.textContent = visibleCount;
+                }
+                
+                // Search input handler
+                searchInput.addEventListener('input', (e) => {
+                    searchQuery = e.target.value;
+                    filterPlants();
+                });
+                
+                // Filter button handlers
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Update active state
+                        filterBtns.forEach(b => b.classList.remove('active', 'bg-green-500', 'text-white'));
+                        btn.classList.add('active', 'bg-green-500', 'text-white');
+                        currentFilter = btn.dataset.filter;
+                        filterPlants();
+                    });
+                });
+            }
+            
+            // Initialize on DOM ready
+            document.addEventListener('DOMContentLoaded', initSearchAndFilter);
+        })();
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.feather) feather.replace();

@@ -153,6 +153,10 @@
     <style id="leaf-overlay-style">
       #leaf-overlay { contain: layout paint size style; }
       #leaf-overlay-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      /* Dark mode background for leaf overlay */
+      html.dark #leaf-overlay {
+        background: rgba(0, 0, 0, 1) !important;
+      }
     </style>
     <div id="leaf-overlay"
          style="position:fixed;inset:0;z-index:20000;pointer-events:none;background:rgba(255,255,255,1);display:block;">
