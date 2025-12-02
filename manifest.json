@@ -1,0 +1,64 @@
+{
+  "name": "Flora Yanma Atlası",
+  "short_name": "Flora Atlası",
+  "description": "Bitkilerin yangına karşı geliştirdiği koruma mekanizmalarını keşfedin. AI destekli sesli anlatımla bitki yanma bilimini öğrenin.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2d5016",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "tr",
+  "categories": ["education", "science", "nature"],
+  "icons": [
+    {
+      "src": "/static/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Flora Yanma Atlası Ana Sayfa"
+    },
+    {
+      "src": "/images/screenshot-mobile.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobil Bitki Galerisi"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Bitki Galerisi",
+      "short_name": "Bitkiler",
+      "description": "Tüm bitki türlerini görüntüle",
+      "url": "/plants.html",
+      "icons": [
+        {
+          "src": "/static/shortcut-plants.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

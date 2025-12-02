@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gizlilik Politikası | Flora Yanma Atlası</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons" defer></script>
+</head>
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+    
+    <!-- Privacy Policy Section -->
+    <section class="py-16 bg-gradient-to-b from-white to-green-50">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800">
+                Gizlilik Politikası 🛡️
+            </h1>
+            <p class="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto">
+                Flora Yanma Atlası olarak gizliliğinize verdiğimiz önemi öğrenin
+            </p>
+            
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+                <div class="prose max-w-none">
+                    <h2 class="text-2xl font-bold mb-4">Bilgi Toplama ve Kullanımı</h2>
+                    <p class="mb-4">
+                        Flora Yanma Atlası, ziyaretçilerin gizliliğini korumayı taahhüt eder. 
+                        Sitemizi kullanırken kişisel bilgilerinizi toplamayız ve saklamayız.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold mb-4 mt-8">Çerezler (Cookies)</h2>
+                    <p class="mb-4">
+                        Sitemiz, kullanıcı deneyimini iyileştirmek için çerezler kullanabilir. 
+                        Bu çerezler yalnızca site işlevselliğini destekler ve kişisel bilgilerinizi içermez.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold mb-4 mt-8">Üçüncü Taraf Hizmetler</h2>
+                    <p class="mb-4">
+                        Sitemizde kullanılan harici kaynaklar (örneğin: CDN'ler, API'ler) 
+                        kendi gizlilik politikalarına sahiptir. Bu hizmetlerin gizlilik uygulamalarından 
+                        sorumlu değiliz.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold mb-4 mt-8">Veri Güvenliği</h2>
+                    <p class="mb-4">
+                        Kişisel bilgi toplamadığımız için veri güvenliği konusunda endişelenmenize gerek yoktur. 
+                        Sitemizde gezinirken anonim kalırsınız.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold mb-4 mt-8">İletişim</h2>
+                    <p class="mb-4">
+                        Bu gizlilik politikasıyla ilgili sorularınız varsa, lütfen 
+                        GitHub repository'mizden bizimle iletişime geçin.
+                    </p>
+                    
+                    <div class="mt-8 p-4 bg-green-50 rounded-xl border border-green-200">
+                        <p class="text-green-800">
+                            <strong>Son Güncelleme:</strong> 2024-01-01
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <custom-footer></custom-footer>
+
+    <!-- Component Scripts -->
+    <script src="navbar.js" defer></script>
+    <script src="footer.js" defer></script>
+    <script src="script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.feather) feather.replace();
+        });
+    </script>
+</body>
+</html>

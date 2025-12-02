@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Bitki Galerisi | Flora Yanma Atlası</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons" defer></script>
+</head>
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+    
+    <!-- Plants Gallery Section -->
+    <section class="py-16 bg-gradient-to-b from-green-50 to-white relative overflow-hidden">
+        <!-- Parçacık efektleri -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800 animate-pulse">
+        Bitki Galerisi 🌿
+        </h1>
+            <p class="text-lg sm:text-xl text-center mb-4 text-gray-600 max-w-3xl mx-auto px-4">
+        Doğanın yangına karşı geliştirdiği benzersiz stratejileri keşfedin ✨
+        </p>
+            
+            <!-- Search and Filter Section -->
+            <div class="max-w-4xl mx-auto mb-8">
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-green-100">
+                    <!-- Search Box -->
+                    <div class="mb-4">
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="plant-search" 
+                                placeholder="Bitki ara... 🌿" 
+                                class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                            >
+                            <i data-feather="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold bg-green-500 text-white transition-all" data-filter="all">
+                            Tümü
+                        </button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-800 hover:bg-green-200 transition-all" data-filter="resistance-high">
+                            Çok Dayanıklı
+                        </button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800 hover:bg-yellow-200 transition-all" data-filter="resistance-medium">
+                            Orta Dayanıklı
+                        </button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-blue-100 text-blue-800 hover:bg-blue-200 transition-all" data-filter="burn-slow">
+                            Yavaş Yanan
+                        </button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-orange-100 text-orange-800 hover:bg-orange-200 transition-all" data-filter="burn-fast">
+                            Hızlı Yanan
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Results Counter -->
+                <div id="results-counter" class="text-center mt-4 text-gray-600 font-medium">
+                    <span id="results-count">10</span> bitki gösteriliyor
+                </div>
+            </div>
+            
+            <!-- Plants Grid - Mobil First -->
+            <div id="plants-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-6xl mx-auto">
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/aloe-vera.jpg" alt="Aloe Vera" class="w-full h-40 sm:h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Aloe Vera 🌱</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-200 text-green-900 animate-pulse">
+                                Çok Yüksek
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Yüksek su içeriği ve jel yapısı sayesinde yangına karşı çok dayanıklıdır.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=1" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Aloe Vera', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/kaktus.jpg" alt="Kaktüs" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Kaktüs 🌵</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                                Yüksek
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Su depolama özelliği ve kalın epidermis tabakası yangına karşı koruma sağlar.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=2" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Kaktüs', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/ada-cayi.jpg" alt="Ada Çayı" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Ada Çayı 🌿</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
+                                Orta
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Uçucu yağları ve aromatik bileşenleri yangın direncini etkiler.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=3" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Ada Çayı', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4"></i>
+                                Sesli Anlat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/lavanta.jpg" alt="Lavanta" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Lavanta 💜</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 animate-pulse">
+                                Yüksek
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Uçucu yağları ve yaprak yapısı yangına dayanıklıdır.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=4" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Lavanta', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/biberiye.jpg" alt="Biberiye" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Biberiye 🌿</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 animate-pulse">
+                                Yüksek
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Aromatik yağları ve kalın yaprakları yangına karşı koruma sağlar.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=5" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Biberiye', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/defne.jpg" alt="Defne" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Defne 🌿</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 animate-pulse">
+                                Yüksek
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Kalın yaprakları ve uçucu yağları yangın direncini artırır.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=6" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Defne', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/zeytin.jpg" alt="Zeytin" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Zeytin 🌿</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-200 text-green-900 animate-pulse">
+                                Çok Yüksek
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Kalın gövde ve yaprakları ile yangına karşı dayanıklıdır.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=7" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Zeytin', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/etli-sukulentler.jpg" alt="Etli Sukulentler" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Etli Sukulentler 🌵</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-200 text-green-900 animate-pulse">
+                                Çok Yüksek
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Su depolama özelliği ve kalın epidermis ile yangına karşı çok dayanıklıdır.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=8" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Etli Sukulentler', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/akasya.jpg" alt="Akasya" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Akasya 🌳</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800 animate-pulse">
+                                Orta
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Kalın kabuk ve yaprak yapısı yangın direncini etkiler.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=9" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Akasya', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plant-card bg-white rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:border-green-300 transform hover:scale-105 transition-all duration-300">
+                    <img src="images/plants/ortanca.jpg" alt="Ortanca" class="w-full h-40 sm:h-48 object-cover plant-image hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" fetchpriority="low">
+                    <div class="p-4 md:p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors duration-300">Ortanca 🌸</h3>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800 animate-pulse">
+                                Orta
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Yüksek su içeriği ve yaprak yapısı yangına karşı koruma sağlar.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <a href="plant-detail.html?id=10" class="text-green-600 font-semibold hover:text-green-700 transition-colors detail-link">
+                                Detaylı İncele →
+                            </a>
+                            <button onclick="audioSystem.playAudio('Ortanca', this)" 
+                                    class="audio-button bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 transform hover:-translate-y-1"
+                                    title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                <i data-feather="volume-2" class="inline mr-2 w-4 h-4 animate-pulse"></i>
+                                Sesli Anlat 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<custom-footer></custom-footer>
+
+    <!-- Component Scripts -->
+    <script src="components/js/navbar.js" defer></script>
+    <script src="components/js/footer.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="audio-system.js" defer></script>
+    <script>
+        // Search and Filter Functionality
+        (function() {
+            function initSearchAndFilter() {
+                const searchInput = document.getElementById('plant-search');
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const plantCards = document.querySelectorAll('.plant-card');
+                const resultsCounter = document.getElementById('results-count');
+                
+                let currentFilter = 'all';
+                let searchQuery = '';
+                
+                // Plant data mapping for filtering
+                const plantData = {
+                    1: { name: 'Aloe Vera', resistance: 'Çok Yüksek', burnSpeed: 'Çok Düşük', id: 1 },
+                    2: { name: 'Kaktüs', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 2 },
+                    3: { name: 'Ada Çayı', resistance: 'Orta', burnSpeed: 'Orta', id: 3 },
+                    4: { name: 'Lavanta', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 4 },
+                    5: { name: 'Biberiye', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 5 },
+                    6: { name: 'Defne', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 6 },
+                    7: { name: 'Zeytin', resistance: 'Çok Yüksek', burnSpeed: 'Çok Düşük', id: 7 },
+                    8: { name: 'Etli Sukulentler', resistance: 'Çok Yüksek', burnSpeed: 'Çok Düşük', id: 8 },
+                    9: { name: 'Akasya', resistance: 'Orta', burnSpeed: 'Orta', id: 9 },
+                    10: { name: 'Ortanca', resistance: 'Yüksek', burnSpeed: 'Düşük', id: 10 }
+                };
+                
+                function filterPlants() {
+                    let visibleCount = 0;
+                    
+                    plantCards.forEach((card, index) => {
+                        const plantId = index + 1;
+                        const data = plantData[plantId];
+                        if (!data) return;
+                        
+                        // Check filter
+                        let matchesFilter = false;
+                        switch(currentFilter) {
+                            case 'all':
+                                matchesFilter = true;
+                                break;
+                            case 'resistance-high':
+                                matchesFilter = data.resistance === 'Çok Yüksek';
+                                break;
+                            case 'resistance-medium':
+                                matchesFilter = data.resistance === 'Orta';
+                                break;
+                            case 'burn-slow':
+                                matchesFilter = data.burnSpeed === 'Düşük' || data.burnSpeed === 'Çok Düşük';
+                                break;
+                            case 'burn-fast':
+                                matchesFilter = data.burnSpeed === 'Yüksek' || data.burnSpeed === 'Çok Yüksek';
+                                break;
+                        }
+                        
+                        // Check search
+                        const matchesSearch = !searchQuery || 
+                            data.name.toLowerCase().includes(searchQuery.toLowerCase());
+                        
+                        // Show/hide card
+                        if (matchesFilter && matchesSearch) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update counter
+                    resultsCounter.textContent = visibleCount;
+                }
+                
+                // Search input handler
+                searchInput.addEventListener('input', (e) => {
+                    searchQuery = e.target.value;
+                    filterPlants();
+                });
+                
+                // Filter button handlers
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Update active state
+                        filterBtns.forEach(b => b.classList.remove('active', 'bg-green-500', 'text-white'));
+                        btn.classList.add('active', 'bg-green-500', 'text-white');
+                        currentFilter = btn.dataset.filter;
+                        filterPlants();
+                    });
+                });
+            }
+            
+            // Initialize on DOM ready
+            document.addEventListener('DOMContentLoaded', initSearchAndFilter);
+        })();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.feather) feather.replace();
+            // Smooth page transition for detail links
+            const links = document.querySelectorAll('.detail-link');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.body.classList.add('page-fade-out');
+                    const href = link.getAttribute('href');
+                    setTimeout(() => { window.location.href = href; }, 200);
+                });
+            });
+            
+            // ✨ Ekstra animasyon efektleri
+            const plantCards = document.querySelectorAll('.plant-card');
+            
+            // Intersection Observer ile scroll animasyonları
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            plantCards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Link ripple transition for detail links
+            const detailLinks = document.querySelectorAll('a[href^="plant-detail.html"]');
+            const overlay = document.createElement('div');
+            overlay.className = 'ripple-overlay';
+            document.body.appendChild(overlay);
+            detailLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = (e.clientX || (rect.left + rect.width/2));
+                    const y = (e.clientY || (rect.top + rect.height/2));
+                    const circle = document.createElement('div');
+                    circle.className = 'ripple-circle';
+                    circle.style.left = x + 'px';
+                    circle.style.top = y + 'px';
+                    overlay.appendChild(circle);
+                    setTimeout(() => { window.location.href = e.currentTarget.href; }, 350);
+                });
+            });
+
+            // Mouse takip efekti - Optimized with throttling
+            let mouseMoveTimeout;
+            document.addEventListener('mousemove', (e) => {
+                if (mouseMoveTimeout) return;
+                
+                mouseMoveTimeout = setTimeout(() => {
+                    const particles = document.querySelectorAll('.particle');
+                    particles.forEach((particle, index) => {
+                        const speed = (index + 1) * 0.01; // Reduced speed for better performance
+                        const x = e.clientX * speed;
+                        const y = e.clientY * speed;
+                        particle.style.transform = `translate3d(${x}px, ${y}px, 0)`; // GPU acceleration
+                    });
+                    mouseMoveTimeout = null;
+                }, 16); // ~60fps throttling
+            });
+            
+            // Sesli anlat butonlarına özel efekt - Mobil uyumlu
+            const audioButtons = document.querySelectorAll('.audio-button');
+            audioButtons.forEach(button => {
+                // Desktop hover efektleri
+                button.addEventListener('mouseenter', () => {
+                    if (window.innerWidth > 768) {
+                        button.style.transform = 'scale(1.1) rotate(2deg)';
+                    }
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    if (window.innerWidth > 768 && !button.classList.contains('playing')) {
+                        button.style.transform = 'scale(1) rotate(0deg)';
+                    }
+                });
+                
+                // Mobil touch efektleri
+                button.addEventListener('touchstart', () => {
+                    button.style.transform = 'scale(0.95)';
+                });
+                
+                button.addEventListener('touchend', () => {
+                    setTimeout(() => {
+                        if (!button.classList.contains('playing')) {
+                            button.style.transform = 'scale(1)';
+                        }
+                    }, 150);
+                });
+            });
+            
+            // Mobil için parçacık efektlerini devre dışı bırak
+            if (window.innerWidth <= 768) {
+                const particles = document.querySelectorAll('.particle');
+                particles.forEach(particle => {
+                    particle.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+/* Non-critical CSS - Loaded after page render */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+/* Extended color palette */
+:root {
+    --moss-green: #8fbc8f;
+    --earth-brown: #8b4513;
+    --sunset-orange: #ff8c42;
+    --sky-blue: #87ceeb;
+    --bark-brown: #654321;
+    --soil-brown: #8b7355;
+    --flower-pink: #ffb6c1;
+}
+
+/* Enhanced scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--leaf-green), var(--sage-green));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--forest-green), var(--leaf-green));
+}
+
+/* Smooth transitions for interactive elements */
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Gradient backgrounds */
+.natural-gradient {
+    background: linear-gradient(135deg, var(--forest-green) 0%, var(--sage-green) 50%, var(--moss-green) 100%);
+}
+
+.sky-gradient {
+    background: linear-gradient(135deg, var(--sky-blue) 0%, #e0f6ff 50%, #f0f8ff 100%);
+}
+
+/* Organic animations */
+@keyframes organicFloat {
+    0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    50% { border-radius: 50% 30% 60% 40% / 30% 50% 60% 70%; }
+    75% { border-radius: 40% 70% 30% 60% / 70% 40% 50% 30%; }
+}
+
+.organic-shape {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: organicFloat 6s ease-in-out infinite;
+}
+
+/* Enhanced card effects */
+.plant-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.9) 100%);
+    backdrop-filter: blur(10px);
+}
+
+.plant-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(135, 169, 107, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(45, 80, 22, 0.05) 0%, transparent 50%);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.plant-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 25px 50px -12px rgba(45, 80, 22, 0.15),
+        0 8px 16px rgba(45, 80, 22, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(135, 169, 107, 0.4);
+}
+
+.plant-card:hover .plant-image {
+    transform: scale(1.1);
+}
+
+.plant-image {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Shimmer effect */
+.plant-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+    z-index: 2;
+}
+
+.plant-card:hover::after {
+    left: 100%;
+}
+
+/* Enhanced buttons */
+.natural-button {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--forest-green);
+}
+
+.natural-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.natural-button:hover::before {
+    left: 100%;
+}
+
+.natural-button:hover {
+    background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
+    box-shadow: 0 8px 25px rgba(45, 80, 22, 0.3);
+}
+
+/* Audio button enhancements */
+.audio-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--leaf-green) 0%, var(--sage-green) 100%);
+    border: 1px solid var(--forest-green);
+}
+
+.audio-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(45, 80, 22, 0.3);
+    background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
+}
+
+.audio-button:active {
+    transform: translateY(0);
+}
+
+/* Link animations */
+.plant-card a {
+    transition: all 0.3s ease;
+    position: relative;
+    color: var(--forest-green);
+}
+
+.plant-card a:hover {
+    color: var(--leaf-green) !important;
+}
+
+.plant-card a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: linear-gradient(90deg, var(--leaf-green), var(--sage-green));
+    transition: width 0.3s ease;
+}
+
+.plant-card a:hover::after {
+    width: 100%;
+}
+
+/* Audio player styles */
+.audio-progress {
+    transition: width 0.1s ease;
+}
+
+.audio-progress:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+}
+
+.audio-progress-container {
+    transition: all 0.2s ease;
+}
+
+.audio-progress-container:hover {
+    background: rgba(255, 255, 255, 0.4) !important;
+    transform: scaleY(1.2);
+}
+
+.audio-player {
+    background: linear-gradient(135deg, var(--forest-green), var(--sage-green));
+    border: 2px solid var(--leaf-green);
+    box-shadow: 
+        0 10px 30px rgba(45, 80, 22, 0.1),
+        0 4px 8px rgba(45, 80, 22, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Page animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Staggered animations */
+.plant-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.plant-card:nth-child(1) { animation-delay: 0.1s; }
+.plant-card:nth-child(2) { animation-delay: 0.2s; }
+.plant-card:nth-child(3) { animation-delay: 0.3s; }
+.plant-card:nth-child(4) { animation-delay: 0.4s; }
+.plant-card:nth-child(5) { animation-delay: 0.5s; }
+.plant-card:nth-child(6) { animation-delay: 0.6s; }
+.plant-card:nth-child(7) { animation-delay: 0.7s; }
+.plant-card:nth-child(8) { animation-delay: 0.8s; }
+.plant-card:nth-child(9) { animation-delay: 0.9s; }
+.plant-card:nth-child(10) { animation-delay: 1.0s; }
+
+/* Hero animations */
+#hero h1 {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+#hero p {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+#hero .flex {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* Feature cards */
+.feature-card {
+    animation: fadeInScale 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.3s; }
+.feature-card:nth-child(3) { animation-delay: 0.5s; }
+
+/* Loading animations */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading {
+    animation: pulse 2s infinite;
+}
+
+.loading i {
+    animation: spin 1s linear infinite;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus styles for keyboard navigation */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid var(--forest-green);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .plant-card {
+        border: 2px solid var(--forest-green);
+    }
+    
+    .natural-button {
+        border: 2px solid white;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitki Detayı | Flora Yanma Atlası</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons" defer></script>
+</head>
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+    
+    <!-- Plant Detail Section -->
+    <section class="py-16 bg-gradient-to-b from-white to-green-50">
+        <div class="container mx-auto px-4">
+            <!-- Back Button -->
+            <div class="max-w-4xl mx-auto mb-8">
+                <a href="plants.html" class="inline-flex items-center text-green-600 hover:text-green-700 transition-colors font-semibold">
+                    <i data-feather="arrow-left" class="w-5 h-5 mr-2"></i>
+                    Bitki Galerisine Dön
+                </a>
+            </div>
+            
+            <div id="plant-detail-content" class="max-w-4xl mx-auto">
+                <!-- Content will be populated by JavaScript -->
+                <div class="text-center py-12">
+                    <div class="loading">
+                        <i data-feather="loader" class="w-12 h-12 text-green-500 animate-spin mx-auto"></i>
+                    </div>
+                    <p class="text-gray-600 mt-4">Bitki bilgileri yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <custom-footer></custom-footer>
+
+    <!-- Component Scripts -->
+    <script src="components/js/navbar.js" defer></script>
+    <script src="components/js/footer.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="audio-system.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.feather) feather.replace();
+        });
+
+        // Get plant ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const plantId = urlParams.get('id');
+        
+        // Load plant details
+        document.addEventListener('DOMContentLoaded', () => {
+            const plant = plantData.getPlantById(plantId);
+            if (plant) {
+                const html = `
+                    <div class="grid lg:grid-cols-2 gap-12 fade-in-up">
+                        <!-- Plant Image -->
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden fade-in-scale fade-in-delay-1">
+                            <img src="${plant.image}" alt="${plant.name}" class="w-full h-80 md:h-96 object-cover plant-image cursor-zoom-in" loading="lazy" decoding="async" onclick="showImageModal('${plant.image}')">
+                        </div>
+                        
+                        <!-- Plant Info -->
+                        <div class="fade-in-up fade-in-delay-2">
+                            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">${plant.name}</h1>
+                            <p class="text-gray-600 mb-2"><strong>Bilimsel Adı:</strong> ${plant.scientificName}</p>
+                            
+                            <div class="grid grid-cols-2 gap-4 my-6">
+                                <div class="bg-green-50 p-4 rounded-xl fade-in-up fade-in-delay-2">
+                                    <i data-feather="zap" class="text-green-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-800">Yanma Hızı</h4>
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${utils.formatBurnSpeed(plant.burnSpeed)}">
+                                        ${plant.burnSpeed}
+                                    </span>
+                                </div>
+                                <div class="bg-orange-50 p-4 rounded-xl fade-in-up fade-in-delay-3">
+                                    <i data-feather="shield" class="text-orange-600 mb-2"></i>
+                                    <h4 class="font-semibold text-gray-800">Yangın Direnci</h4>
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${utils.formatFireResistance(plant.fireResistance)}">
+                                        ${plant.fireResistance}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-green-200 mb-6 fade-in-up">
+                                <h3 class="text-xl font-bold mb-3 text-gray-800">Koruma Mekanizması</h3>
+                                <p class="text-gray-600 leading-relaxed">${plant.protectionMechanism}</p>
+                            </div>
+                            
+                            <!-- Audio Player -->
+                            <div class="audio-player p-4 rounded-xl text-white mb-6 fade-in-up">
+                                <h3 class="text-lg font-semibold mb-3">Sesli Anlatım 🎧</h3>
+                                <div class="flex items-center gap-4">
+                                    <button onclick="audioSystem.playAudio('${plant.name}', this)" 
+                                            class="flex items-center gap-2 bg-white text-green-600 px-4 py-2 rounded-full font-semibold transition-all duration-300"
+                                            title="Bitki hakkında sesli bilgi dinle (1-1.5 dakika)">
+                                        <i data-feather="volume-2" class="w-4 h-4"></i>
+                                        Sesli Anlat
+                                    </button>
+                                    <div class="flex-1 bg-white bg-opacity-30 rounded-full h-2 relative overflow-hidden cursor-pointer audio-progress-container" onclick="audioSystem.seekTo(event)">
+                                        <div class="audio-progress bg-white bg-opacity-80 h-full rounded-full transition-all duration-100" style="width: 0%"></div>
+                                    </div>
+                                    <span class="audio-time text-white text-sm font-medium min-w-[80px]">0:00 / 0:00</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 fade-in-up">
+                                <h3 class="text-xl font-bold mb-3 text-gray-800">Bilimsel Açıklama</h3>
+                                <p class="text-gray-600 leading-relaxed">${plant.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                const container = document.getElementById('plant-detail-content');
+                container.innerHTML = html;
+                if (window.feather) feather.replace();
+            } else {
+                document.getElementById('plant-detail-content').innerHTML = `
+                    <div class="text-center py-12">
+                        <i data-feather="alert-circle" class="w-16 h-16 text-red-500 mx-auto"></i>
+                        <h2 class="text-2xl font-bold mt-4 text-gray-800">Bitki bulunamadı</h2>
+                        <a href="plants.html" class="inline-block mt-4 bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-600 transition-colors">
+                        ← Bitki Galerisine Dön
+                    </a>
+                    </div>
+                `;
+                if (window.feather) feather.replace();
+            }
+        });
+    </script>
+    <!-- IMAGE MODAL -->
+    <div id="image-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;" onclick="hideImageModal()">
+        <img id="image-modal-img" src="" alt="Büyük Görsel" style="max-width:90vw; max-height:90vh; border-radius:2rem; box-shadow:0 0 30px #0008; display:block; margin:auto;">
+    </div>
+    <script>
+    function showImageModal(imgSrc) {
+        const overlay = document.getElementById('image-modal-overlay');
+        const img = document.getElementById('image-modal-img');
+        img.src = imgSrc;
+        overlay.style.display = 'flex';
+        setTimeout(() => { overlay.style.opacity = 1; }, 20);
+    }   
+    function hideImageModal() {
+        const overlay = document.getElementById('image-modal-overlay');
+        overlay.style.opacity = 0;
+        setTimeout(() => { overlay.style.display = 'none'; }, 200);
+    }
+    </script>
+    
+    <!-- LEAF OVERLAY EFFECT (CANVAS OPTIMIZED) -->
+    <style id="leaf-overlay-style">
+      #leaf-overlay { contain: layout paint size style; }
+      #leaf-overlay-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      /* Dark mode background for leaf overlay */
+      html.dark #leaf-overlay {
+        background: rgba(0, 0, 0, 1) !important;
+      }
+    </style>
+    <div id="leaf-overlay"
+         style="position:fixed;inset:0;z-index:20000;pointer-events:none;background:rgba(255,255,255,1);display:block;">
+      <canvas id="leaf-overlay-canvas"></canvas>
+    </div>
+    <script>
+    // High-performance leaf overlay: single canvas, ImageBitmap, staggered fast fade
+    (function() {
+      const LEAF_IMG = 'images/plants/yaprak-kucuk-resim-cizgi-film-illustrasyon-cizimi_871209-9307.png';
+      const overlay = document.getElementById('leaf-overlay');
+      const canvas = document.getElementById('leaf-overlay-canvas');
+      if (!overlay || !canvas) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap DPR for perf
+      const ww = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      const wh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      canvas.width = Math.ceil(ww * dpr);
+      canvas.height = Math.ceil(wh * dpr);
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+      ctx.imageSmoothingEnabled = true;
+
+      // Density heuristic + caps for very low-end
+      const baseCount = Math.floor((ww * wh) / 700);
+      const LEAF_COUNT = Math.max(260, Math.min(520, baseCount));
+
+      // Placement helpers (lightweight bin to avoid extreme overlap)
+      const BIN_SIZE = 120;
+      const cols = Math.ceil(ww / BIN_SIZE) + 2;
+      const rows = Math.ceil(wh / BIN_SIZE) + 2;
+      const bins = new Array(rows).fill(null).map(() => new Array(cols).fill(0));
+      const maxPerBin = 4;
+      const margin = 10;
+      function tryPlace(xMin, xMax, yMin, yMax) {
+        for (let attempt = 0; attempt < 20; attempt++) {
+          const x = xMin + Math.random() * (xMax - xMin);
+          const y = yMin + Math.random() * (yMax - yMin);
+          const c = Math.max(0, Math.min(cols-1, Math.floor((x + 0.01) / BIN_SIZE)));
+          const r = Math.max(0, Math.min(rows-1, Math.floor((y + 0.01) / BIN_SIZE)));
+          if (bins[r][c] < maxPerBin) { bins[r][c]++; return { x, y }; }
+        }
+        return { x: xMin + Math.random() * (xMax - xMin), y: yMin + Math.random() * (yMax - yMin) };
+      }
+
+      const leaves = [];
+      function pushLeaf(x, y, wMin, wMax, sMin, sMax) {
+        const width = wMin + Math.random() * (wMax - wMin);
+        const scale = sMin + Math.random() * (sMax - sMin);
+        const rot = Math.random() * Math.PI * 2; // radians
+        // Staggered fade: random delay (ms) and duration (ms)
+        const delay = 140 + Math.random() * 680;
+        const duration = 500 + Math.random() * 450;
+        leaves.push({ x, y, width, scale, rot, delay, duration, alpha: 1 });
+      }
+
+      // Core distribution
+      for (let i = 0; i < LEAF_COUNT; i++) {
+        const p = tryPlace(margin, ww - margin, margin, wh - margin);
+        pushLeaf(p.x, p.y, 38, 95, 0.58, 1.25);
+      }
+      // Top edge cluster
+      const topCount = Math.floor(LEAF_COUNT * 0.45);
+      for (let i = 0; i < topCount; i++) {
+        const p = tryPlace(0, ww, -26, 64);
+        pushLeaf(p.x, p.y, 30, 88, 0.58, 1.15);
+      }
+      // Left edge cluster
+      const leftCount = Math.floor(LEAF_COUNT * 0.32);
+      for (let i = 0; i < leftCount; i++) {
+        const p = tryPlace(-30, 68, 0, wh);
+        pushLeaf(p.x, p.y, 30, 90, 0.53, 1.2);
+      }
+
+      // Preload → ImageBitmap for faster draw
+      function start(imgBitmap) {
+        // Draw loop with per-leaf alpha
+        const startTime = performance.now();
+        let maxEnd = 0;
+        for (const lf of leaves) {
+          const end = lf.delay + lf.duration;
+          if (end > maxEnd) maxEnd = end;
+        }
+        const totalEnd = maxEnd + 220;
+
+        function draw(now) {
+          const t = now - startTime;
+          // Clear
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.save();
+          ctx.scale(dpr, dpr);
+          // Draw all leaves
+          for (const lf of leaves) {
+            // Compute alpha
+            if (t <= lf.delay) {
+              lf.alpha = 1;
+            } else {
+              const p = Math.min(1, (t - lf.delay) / lf.duration);
+              lf.alpha = 1 - p;
+            }
+            if (lf.alpha <= 0) continue;
+            ctx.globalAlpha = lf.alpha;
+            ctx.save();
+            ctx.translate(lf.x, lf.y);
+            ctx.rotate(lf.rot);
+            const w = lf.width;
+            const h = w; // assume roughly square sprite
+            const s = lf.scale;
+            ctx.scale(s, s);
+            ctx.drawImage(imgBitmap, -w/2, -h/2, w, h);
+            ctx.restore();
+          }
+          ctx.restore();
+
+          if (t < totalEnd) {
+            requestAnimationFrame(draw);
+          } else {
+            // fade overlay bg and remove
+            overlay.style.transition = 'background 180ms linear';
+            overlay.style.background = 'rgba(255,255,255,0)';
+            setTimeout(() => {
+              if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            }, 220);
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      const img = new Image();
+      img.src = LEAF_IMG;
+      const begin = () => {
+        if (window.createImageBitmap) {
+          createImageBitmap(img, { imageOrientation: 'none', premultiplyAlpha: 'premultiply' })
+            .then(start)
+            .catch(() => start(img));
+        } else {
+          start(img);
+        }
+      };
+      if (img.decode) {
+        img.decode().then(begin).catch(begin);
+      } else {
+        img.onload = begin; img.onerror = begin;
+      }
+    })();
+    </script>
+</body>
+</html>
