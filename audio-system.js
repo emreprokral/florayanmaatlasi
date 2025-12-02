@@ -130,7 +130,10 @@ class SimpleAudioSystem {
             'Zeytin': 'audio/plants/defne.mp3',  // Zeytin için defne.mp3 kullan
             'Etli Sukulentler': 'audio/plants/etli-sukulentler.mp3',
             'Akasya': 'audio/plants/akasya.mp3',
-            'Ortanca': 'audio/plants/ortanca.mp3'
+            'Ortanca': 'audio/plants/ortanca.mp3',
+            'Kekik': 'audio/plants/kekik.mp3',
+            'Şimşir': 'audio/plants/simshir.mp3',
+            'Paraçiçeği': 'audio/plants/para-cicegi.mp3'
         };
         return audioFiles[plantName] || null;
     }

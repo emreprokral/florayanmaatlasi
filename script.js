@@ -171,6 +171,39 @@ const plantData = {
             fireResistance: "Yüksek",
             protectionMechanism: "Yüksek su içeriği ve yaprak yapısı",
             audioUrl: "audio/plants/ortanca.mp3"
+        },
+        {
+            id: 11,
+            name: "Kekik",
+            scientificName: "Thymus vulgaris",
+            image: "images/plants/kekik.jpg",
+            description: "Kekik (Thymus vulgaris), ballıbabagiller familyasına ait, 10-40 cm boya ulaşabilen, çok yıllık ve aromatik bir yarı çalıdır. Akdeniz bölgesine özgü olup, sıcak, güneşli ortamları ve iyi drene edilmiş, kumlu toprakları tercih eder. Küçük, oval yaprakları ve pembe-mor çiçekleriyle tanınır.\n\nBitkinin yapraklarında yüksek oranda uçucu yağlar (başlıca Thymol ve Carvacrol) bulunur; bu bileşenler ona güçlü aromasını ve antiseptik özelliklerini kazandırır. Uçucu yağlar aynı zamanda bitkinin yangına karşı direncini artıran önemli bir faktördür.\n\nYangına karşı yüksek düzeyde dayanıklılık sergiler. Odunsu gövdesi ve toprak üstü kısmı yangında görece yavaş yanar ve uçucu yağlarının yanıcı etkisi sınırlıdır. Derin kök sistemi sayesinde yüzey yangınlarından sonra hızla yeniden filizlenme yeteneği mevcuttur. Bu güçlü toparlanma gücü, kekikin doğal yaşam döngüsünde önemli bir direnç karakteridir. Bana kalırsa, güçlü kokusu ve dayanıklılığıyla kekik, doğanın zorlu koşullara karşı geliştirdiği mükemmel bir adaptasyon örneğidir.",
+            burnSpeed: "Düşük",
+            fireResistance: "Yüksek",
+            protectionMechanism: "Uçucu yağlar ve aromatik bileşenler",
+            audioUrl: "audio/plants/kekik.mp3"
+        },
+        {
+            id: 12,
+            name: "Şimşir",
+            scientificName: "Buxus sempervirens",
+            image: "images/plants/simshir.jpg",
+            description: "Şimşir (Buxus sempervirens), şimşirgiller familyasına ait, 1-10 m boya ulaşabilen, çok yavaş büyüyen, her dem yeşil bir çalı veya küçük ağaçtır. ılıman iklimlere özgü olup, yarı gölge veya tam güneşli ortamları ve nemli, iyi drene edilmiş toprakları tercih eder. Küçük, oval, parlak yeşil yaprakları ve yoğun dallarıyla tanınır.\n\nBitkinin yoğun yaprak yapısı ve kalın epidermis tabakası, su kaybını azaltarak kuraklığa karşı direnç sağlar. Ancak, odunsu gövdesi ve dalları yangında orta düzeyde hassasiyet gösterir.\n\nYangına karşı orta düzeyde dayanıklılık sergiler. Yoğun yaprak örtüsü ve toprak üstü kısmı yangında orta hızda yanabilir, ancak kalın kabuğu kısmi bir koruma sağlar. Yüzey yangınlarından sonra kök sisteminden yeniden filizlenme yeteneği mevcuttur. Bu özelliği sayesinde yangın sonrası alanlarda bitkisel örtünün kısmen yenilenmesine katkı sağlayabilir. Kanımca, şimşirin dayanıklılığı, yoğunluğuyla orantılıdır ve bahçe düzenlemelerinde tercih edilmesinin bir nedenidir.",
+            burnSpeed: "Orta",
+            fireResistance: "Orta",
+            protectionMechanism: "Yoğun yaprak yapısı ve kalın gövde",
+            audioUrl: "audio/plants/simshir.mp3"
+        },
+        {
+            id: 13,
+            name: "Paraçiçeği",
+            scientificName: "Helianthus annuus",
+            image: "images/plants/paracicegi.jpg",
+            description: "Ayçiçeği (Helianthus annuus), papatyagiller familyasına ait, 1-3 m boya ulaşabilen, yıllık bir bitkidir. Güneşli, sıcak ortamları ve verimli, iyi drene edilmiş toprakları tercih eder. Büyük, sarı çiçek başları ve geniş yapraklarıyla tanınır.\n\nBitkinin gövdesinde ve yapraklarında yüksek su içeriği bulunur; bu özellik kuraklığa karşı bir adaptasyon olsa da, yangına karşı sınırlı koruma sağlar. Ancak, bitkinin yıllık doğası ve hızlı büyüme özelliği, yangın sonrası ekosistemlerde önemli bir rol oynayabilir.\n\nYangına karşı orta düzeyde dayanıklılık sergiler. Su içeriği yüksek olan dokuları yangında orta hızda yanabilir. Yıllık bitki olması nedeniyle kök sistemi yüzeyseldir ve yangın sonrası yeniden filizlenme yeteneği sınırlıdır. Bununla birlikte, tohumları yüksek ısıya karşı dirençli olabilir ve yangın sonrası alanlarda hızlı çimlenme gösterebilir. Bana kalırsa, ayçiçeğinin güzelliği ve büyüme hızı, doğanın yangın sonrası toparlanma sürecinde önemli bir sembol haline gelir.",
+            burnSpeed: "Orta",
+            fireResistance: "Orta",
+            protectionMechanism: "Yüksek su içeriği ve gövde yapısı",
+            audioUrl: "audio/plants/para-cicegi.mp3"
         }
     ],
 
